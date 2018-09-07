@@ -31,6 +31,17 @@ if (!isset($_SESSION["id"])){
 		?>
 		<br/><br/>
 		<div class="container">
+			<?php
+				if (isset($_GET["msg"]) AND !empty($_GET["msg"])) {
+					?>	<div class="alert alert-success alert-dismissible fade show"role="alert" id="smessage">							
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<strong><?php echo $_GET["msg"]; ?></strong>
+						</div>
+					<?php
+				}
+			?>
 			<table class="table table-hover table-bordered">
 			    <thead>
 			    	<tr>

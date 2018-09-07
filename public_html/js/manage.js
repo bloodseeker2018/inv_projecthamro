@@ -28,11 +28,14 @@ $(document).ready(function(){
                 success : function(data){
                     if ($.trim(data) == "DEPENDENTDEPARTMENT") {
                         alert("Sorry but this Department is Root of another Department");
+                        //window.location.href = encodeURI(DOMAIN+"/manage_department.php?msg=Sorry but this Department is Root of another Department");
                     }else if($.trim(data) == "DEPARTMENTDELETED"){
-                        alert("Department Deleted Successfully");
+                        //alert("Department Deleted Successfully");
                         manageDepartment(1);
+                        window.location.href = encodeURI(DOMAIN+"/manage_department.php?msg=A Department Deleted Successfully");
                     }else if($.trim(data) == "DELETED"){
-                        alert("Department Deleted Successfully");
+                      //  alert("Department Deleted Successfully");
+                        window.location.href = encodeURI(DOMAIN+"/manage_department.php?msg=Deleted Successfully");
                     }else{
                         alert(data);
                     }
