@@ -9,12 +9,13 @@
         </button>
       </div>      
         <div class="modal-body">
-          <form id="department_form" onsubmit="return false">        
+          <form id="update_department_form" onsubmit="return false">        
             <div class="form-group">
               <label>Department Name</label>
+              <input type="hidden" name="did" id="did" value=""/>
               <input type="text" class="form-control" name="department_name" id="department_name" placeholder="Input Your Department">
               <span id="error_department" class="text-danger" style="font-size: 12px;"></span>
-                <script type="text/javascript">
+              <!--  <script type="text/javascript">
                   document.getElementById("department_name").addEventListener("input", forceLower);
                       function forceLower(evt) {
                         var words = evt.target.value.toLowerCase().split(/\s+/g);
@@ -23,11 +24,12 @@
                         });
                        evt.target.value = newWords.join(" "); 
                       }
-                </script>
+                </script> -->
             </div>
             <div class="form-group">
               <label>Parent Department</label>
-              <select class="form-control" id="parent_dep" name="parent_dep">                
+              <select class="form-control" id="parent_dep" name="parent_dep">
+
               </select>
               <span id="error_parentdep" class="text-danger" style="font-size: 12px;"></span>              
             </div>               

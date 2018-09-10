@@ -62,14 +62,21 @@ if (isset($_POST["manageDepartment"])){
 				<tr>
 		        	<td><?php echo $n; ?></td>
 		        	<td><?php echo $row["departments"]; ?></td>
-		        	<td><?php echo $row["parent"]; ?></td>
+		        	<td><?php
+		        			if(($row["parent"])== ''){
+		        				echo "Root";
+		        		 	} else { 
+		        	 			echo $row["parent"]; 
+		        	 		}
+		        	 	?>
+		        	</td>
 		        	<td>
 		        		<a href="#" class="btn btn-success btn-sm">Active</a>
 		        	</td>
 		        	<td>
 
 		        		<a href="#" tid="<?php echo $row['did']; ?>"  class="btn btn-danger btn-sm delete_dep ">Delete</a>
-		        		<a href="#" eid="<?php echo  $row['did']; ?>" class="btn btn-info btn-sm edit_dep ">Edit</a>
+		        		<a href="#" eid="<?php echo  $row['did']; ?>" data-toggle="modal" data-target="#form_department" class="btn btn-info btn-sm edit_dep ">Edit</a>
 		        	</td>
 		      	</tr>
 			<?php
@@ -85,6 +92,12 @@ if (isset($_POST["deleteDepartment"])) {
 	$m = new Manage();
 	$result = $m->deleteRecord("department","did",$_POST["id"]);
 	echo $result;
+	exit();
+}
+if (isset($_POST["updateDepartment"])) {
+	$m = new Manage();
+	$result = $m->getSingleRecord("department","did",$_POST["id"]);
+	echo json_encode($result);
 	exit();
 }
 //$obj = new Manage();

@@ -89,8 +89,8 @@
           </div>
       </div>
         <div class="modal-footer">
-          <button type="submit" value="submit" id="submitdev" class="btn btn-primary"><i class="fa fa-save" style="color:white;">&nbsp;</i><font style="color:white;">Save changes</font></button>         
-          <button type="button" name="device_dismiss2" id="device_dismiss2" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times" style="color:white;">&nbsp;</i><font style="color:white;">Close</font></button>
+          <button type="submit" value="submit" id="submitdev" class="btn btn-primary dashboardbtn"><i class="fa fa-save" style="color:white;">&nbsp;</i><font style="color:white;">Save changes</font></button>         
+          <button type="button" name="device_dismiss2" id="device_dismiss2" class="btn btn-secondary dashboardbtn" data-dismiss="modal"><i class="fa fa-times" style="color:white;">&nbsp;</i><font style="color:white;">Close</font></button>
         </div>
       </form>
     </div>

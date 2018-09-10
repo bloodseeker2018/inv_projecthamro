@@ -97,7 +97,7 @@ include_once("./templates/header.php");
 				    	<span id="error_usertype" class="text-danger" style="font-size: 12px;"></span>
 				  	</div>	
 				  	<div class="form-group">
-				 		<button type="submit" value="submit" id="submit" class="btn btn-primary"><i class="fa fa-plus">&nbsp;</i>Add</button>
+				 		<button type="submit" value="submit" id="submit" class="btn btn-primary dashboardbtn"><i class="fa fa-plus">&nbsp;</i>Add</button>
 				 	</div>
 
 		<!--		    <button type="submit" value="submit" id="submit" class="btn btn-primary" style="background-color: #008000"><i class="fa fa-unlock">&nbsp;</i><span><a href="index.php" style="color: white; text-decoration: none; font-weight: 100; font-family: sans-serif;"> Login</span></button>  -->

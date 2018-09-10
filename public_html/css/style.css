@@ -30,8 +30,8 @@ body{	/*
 #firstname.fullname{
 border-color: none;
 }
- /*
-.btn:hover{ 
+ 
+.dashboardbtn:hover{ 
     transform: scale(1.05,1.05);
     background-color: #008000;
     border-top: 3px solid #5D4D3D;
@@ -39,9 +39,9 @@ border-color: none;
     border-bottom: 3px solid #5D4D3D;
     border-right: 3px solid #5D4D3D;
 }
-.btn{
+.dashboardbtn{
 	background-color: #5D4D3D;
-} */
+} 
 .nav-item{
 
 }
@@ -111,6 +111,5 @@ border-color: none;
 
 }
 */
-
 
     

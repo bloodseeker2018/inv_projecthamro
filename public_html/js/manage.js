@@ -46,4 +46,31 @@ $(document).ready(function(){
 
         }        
     });
+    fetch_department();
+    function fetch_department(){
+        $.ajax({
+            url : DOMAIN+"/includes/process.php",
+            method : "POST",
+            data : {getDepartment:1},
+            success : function(data){
+                var rooted = "<option value='0'>Root</option>";
+                $("#parent_dep").html(rooted+data);
+            }
+        });
+    }
+    $("body").delegate(".edit_dep","click",function(){
+        var eid = $(this).attr("eid");
+        $.ajax({
+            url : DOMAIN+"/includes/process.php",
+            method : "POST",
+            dataType : "json",
+            data : {updateDepartment:1,id:eid},
+            success : function(data){
+                console.log(data);
+                $("#did").val(data["did"]);
+                $("#department_name").val(data["department_name"]);
+                $("#parent_dep").val(data["parent_dep"]);
+            }
+        })
+    })
 });    

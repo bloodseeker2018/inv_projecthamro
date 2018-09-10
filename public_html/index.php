@@ -62,7 +62,7 @@ if (isset($_SESSION["id"]) AND isset($_SESSION["usertype"])){
      						    	<label for="showHide" id="showHideLabel"><font class="form text text-muted"size="2" > Show Password </font></label><br/>
      						    	<span id="errorlog_password" class="text-danger" style="font-size: 12px;"></span>	
 					    		</div>					    			
-					    			<button type="submit" value="submit" class="btn btn-primary" id="submit"><i class="fa fa-unlock">&nbsp;</i>Login</button>
+					    			<button type="submit" value="submit" class="btn btn-primary dashboardbtn" id="submit"><i class="fa fa-unlock">&nbsp;</i>Login</button>
 							</form>
 			    </div>			   
 			    <div class="card-footer"><a href="http://localhost/inv_projecthamro/public_html/register.php#">Register?</a></div>

@@ -67,6 +67,7 @@ if (!isset($_SESSION["id"])){
 			      	</tr>	-->			      
 			    </tbody>
 			</table>			
-		</div>		
+		</div>
+		<?php include_once("./templates/updatedepartment.php"); ?>		
 	</body>
 </html>	

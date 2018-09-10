@@ -56,7 +56,7 @@ if (!isset($_SESSION["id"])){
 					  	<p class="card-text"><i class="fa fa-user-cog">&nbsp;</i><?php echo $_SESSION["usertype"] ?></p>
 					  	<p class="card-text"><i class="fa fa-clock">&nbsp;</i>Last login : <?php echo $_SESSION["last_login"] ?> </p>
 					  	<br/>
-					    <a href="#" class="btn btn-primary"><i class="fa fa-edit">&nbsp;</i>Edit Profile</a>
+					    <a href="#" class="btn btn-primary dashboardbtn"><i class="fa fa-edit">&nbsp;</i>Edit Profile</a>
 					  </div>
 					</div>
 				</div>
@@ -76,8 +76,8 @@ if (!isset($_SESSION["id"])){
 								<div class="card-body">
 									<h5 class="card-title">Users</h5>
 										<p class="card-text">Here you can add or manage Office Users</p>
-										<a href="register.php" class="btn btn-primary mx-auto"><i class="fa fa-plus">&nbsp;</i>Add</a>
-										<a href="#" class="btn btn-primary mx-auto"><i class="fa fa-edit">&nbsp;</i>Manage</a>
+										<a href="register.php" class="btn btn-primary mx-auto dashboardbtn"><i class="fa fa-plus">&nbsp;</i>Add</a>
+										<a href="#" class="btn btn-primary mx-auto dashboardbtn"><i class="fa fa-edit">&nbsp;</i>Manage</a>
 								</div>
 							</div>
 						</div>
@@ -92,8 +92,8 @@ if (!isset($_SESSION["id"])){
 				      		<div class="card-body">
 				        		<h5 class="card-title">Branch Offices</h5>
 				        		<p class="card-text">Here you can add or manage Branch Office Services</p>
-				        		<a href="#" data-toggle="modal" data-target="#form_branch" class="btn btn-primary mx-auto"><i class="fa fa-plus">&nbsp;</i>Add</a>
-				        		<a href="#" class="btn btn-primary mx-auto"><i class="fa fa-edit">&nbsp;</i>Manage</a>
+				        		<a href="#" data-toggle="modal" data-target="#form_branch" class="btn btn-primary mx-auto dashboardbtn"><i class="fa fa-plus">&nbsp;</i>Add</a>
+				        		<a href="#" class="btn btn-primary mx-auto dashboardbtn"><i class="fa fa-edit">&nbsp;</i>Manage</a>
 				      		</div>
 						</div>
 				</div>
@@ -102,8 +102,8 @@ if (!isset($_SESSION["id"])){
 				      		<div class="card-body">
 				        		<h5 class="card-title">Departments</h5>
 				        		<p class="card-text">Here you can add or manage Office Department</p>
-				        		<a href="#" data-toggle="modal" data-target="#form_department" class="btn btn-primary mx-auto"><i class="fa fa-plus">&nbsp;</i>Add</a>
-				        		<a href="manage_department.php" class="btn btn-primary mx-auto"><i class="fa fa-edit">&nbsp;</i>Manage</a>
+				        		<a href="#" data-toggle="modal" data-target="#form_department" class="btn btn-primary mx-auto dashboardbtn"><i class="fa fa-plus">&nbsp;</i>Add</a>
+				        		<a href="manage_department.php" class="btn btn-primary mx-auto dashboardbtn"><i class="fa fa-edit">&nbsp;</i>Manage</a>
 				      		</div>
 						</div>
 				</div>
@@ -112,8 +112,8 @@ if (!isset($_SESSION["id"])){
 				      		<div class="card-body">
 				        		<h5 class="card-title">Device</h5>
 				        		<p class="card-text">Here you can add or manage all Office Devices</p>
-				        		<a href="#" data-toggle="modal" data-target="#form_device" class="btn btn-primary mx-auto"><i class="fa fa-plus">&nbsp;</i>Add</a>
-				        		<a href="#" class="btn btn-primary mx-auto"><i class="fa fa-edit">&nbsp;</i>Manage</a>
+				        		<a href="#" data-toggle="modal" data-target="#form_device" class="btn btn-primary mx-auto dashboardbtn"><i class="fa fa-plus">&nbsp;</i>Add</a>
+				        		<a href="#" class="btn btn-primary mx-auto dashboardbtn"><i class="fa fa-edit">&nbsp;</i>Manage</a>
 				      		</div>
 						</div>					
 				</div>				
