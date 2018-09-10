@@ -27,8 +27,7 @@ class Manage
 	}
 	private function pagination($con,$table,$pno,$n){
 		$query = $con->query("SELECT COUNT(*) as rows FROM ".$table);
-		$row = mysqli_fetch_assoc($query);
-		//$totalRecords = 100000;
+		$row = mysqli_fetch_assoc($query);		
 		$pageno = $pno;
 		$numberOfRecordsPerPage = $n;
 
@@ -60,8 +59,6 @@ class Manage
 				$pagination .= "<li class='page-item'><a class='page-link' pn='".$next."' href='#' style='color:#333;'> Next </a></li></ul>";
 			}
 		}
-	//LIMIT 0,10
-		//LIMIT 20,10
 		$limit = "LIMIT ".($pageno - 1) * $numberOfRecordsPerPage.",".$numberOfRecordsPerPage;
 
 		return ["pagination"=>$pagination,"limit"=>$limit];
@@ -101,18 +98,14 @@ class Manage
 		}
 		return $row;
 	}
-	/*
-
 	public function update_record($table,$where,$fields){
 		$sql = "";
 		$condition = "";
-		foreach ($where as $key => $value) {
-			// id = '5' AND m_name = 'something'
+		foreach ($where as $key => $value) {			
 			$condition .= $key . "='" . $value . "' AND ";
 		}
 		$condition = substr($condition, 0, -5);
-		foreach ($fields as $key => $value) {
-			//UPDATE table SET m_name = '' , qty = '' WHERE id = '';
+		foreach ($fields as $key => $value) {			
 			$sql .= $key . "='".$value."', ";
 		}
 		$sql = substr($sql, 0,-2);
@@ -120,7 +113,7 @@ class Manage
 		if(mysqli_query($this->con,$sql)){
 			return "UPDATED";
 		}
-	}*/
+	}
 }
 //$obj = new Manage();
 //echo "<pre>";

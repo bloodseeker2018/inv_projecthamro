@@ -100,6 +100,14 @@ if (isset($_POST["updateDepartment"])) {
 	echo json_encode($result);
 	exit();
 }
+if (isset($_POST["update_department"])) {
+	$m = new Manage();
+	$id = $_POST["did"];
+	$name = $_POST["update_department"];
+	$parent = $_POST["parent_dep"];
+	$result = $m->update_record("department",["did"=>$id],["parent_dep"=>$parent,"department_name"=>$name,"status"=>1]);
+	echo $result;
+}
 //$obj = new Manage();
 //echo "<pre>";
 //echo $obj->deleteRecord("department","did",17);

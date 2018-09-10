@@ -320,10 +320,10 @@ $(document).ready(function(){
                                                                                                         success: function(data){
                                                                                                             if ($.trim(data) === "Administrator"){
                                                                                                                 //alert("You have successfully Signup");                                
-                                                                                                                window.location.href = encodeURI(DOMAIN+"/dashboard.php?msg=A new User is registered Now that User can login");                                                                                                                
+                                                                                                                window.location.href = encodeURI(DOMAIN+"/dashboard.php?msg=A New User Is Registered Now That User Can Login");                                                                                                                
                                                                                                             } else {
                                                                                                                 //alert("You have successfully Signup");                                
-                                                                                                                window.location.href = encodeURI(DOMAIN+"/client.php?msg=A new User is registered Now that User can login"); 
+                                                                                                                window.location.href = encodeURI(DOMAIN+"/client.php?msg=A New User Is Registered Now That User Can Login"); 
                                                                                                             }
                                                                                                         }
                                                                                                     })
@@ -458,11 +458,11 @@ $(document).ready(function(){
                         } else if ($.trim(data) === "ADMINISTRATOR"){
                             $(".overlay").hide();                         
                             //alert("You have successfully Login as Administrator");                                
-                            window.location.href = encodeURI(DOMAIN+"/dashboard.php");
+                            window.location.href = encodeURI(DOMAIN+"/dashboard.php?msg=Welcome Administrator to ADBL Inventory Management System");
                         } else if ($.trim(data) === "NORMALUSER"){
                             $(".overlay").hide();
                             //alert("You have successfully Logged in as Normal User");
-                            window.location.href = encodeURI(DOMAIN+"/client.php")
+                            window.location.href = encodeURI(DOMAIN+"/client.php?msg=Welcome User to ADBL Inventory Management System")
                         }                        
                     }
                 });
@@ -565,7 +565,7 @@ $(document).ready(function(){
                 $("#parent_dep").css("border-color", "#2eb82e");
                 $('#submitdep').attr('disabled', false);
                 $("#error_parentdep").text("");
-        } if (!($('#submit').is('disabled', true))){
+        } if (!($('#submitdep').is('disabled', true))){
             if (($("#department_name").val() !== '' && ($("#parent_dep").val() !== ""))) {
                 $.ajax({
                     url : DOMAIN+"/includes/process.php",
@@ -593,11 +593,11 @@ $(document).ready(function(){
                                         success: function(data){
                                             if ($.trim(data) === "Administrator"){
                                                 //alert("New Department added successfully");
-                                                window.location.href = encodeURI(DOMAIN+"/dashboard.php?msg=A new Department is added successfully");
+                                                window.location.href = encodeURI(DOMAIN+"/dashboard.php?msg=A New Department Is Added Successfully");
                                                 $("#department_name").val('');
                                             } else {
                                                 //alert("New Department added successfully");
-                                                window.location.href = encodeURI(DOMAIN+"/client.php?msg=A new Department is added successfully");
+                                                window.location.href = encodeURI(DOMAIN+"/client.php?msg=A New Department Is Added Successfully");
                                                 $("#department_name").val(''); 
                                             }
                                         }
@@ -671,11 +671,11 @@ $(document).ready(function(){
                                     success: function(data){
                                         if ($.trim(data) === "Administrator"){
                                             //alert("New Branch added successfully");
-                                            window.location.href = encodeURI(DOMAIN+"/dashboard.php?msg=A new Branch is added successfully");
+                                            window.location.href = encodeURI(DOMAIN+"/dashboard.php?msg=A New Branch Is Aadded successfully");
                                             $("#branch_name").val('');
                                         } else {
                                            //alert("New Branch added successfully");
-                                            window.location.href = encodeURI(DOMAIN+"/client.php?msg=A new Branch is added successfully");
+                                            window.location.href = encodeURI(DOMAIN+"/client.php?msg=A New Branch Is Aadded successfully");
                                             $("#branch_name").val(''); 
                                         }
                                     }
@@ -927,11 +927,11 @@ $(document).ready(function(){
                                                                     success: function(data){
                                                                         if ($.trim(data) === "Administrator"){
                                                                             //alert("New Device added successfully");
-                                                                            window.location.href = encodeURI(DOMAIN+"/dashboard.php?msg=A new Device is added successfully");
+                                                                            window.location.href = encodeURI(DOMAIN+"/dashboard.php?msg=A New Device Is Added Successfully");
                                                                             clearDevicefield();
                                                                         } else {
                                                                             //alert("New Device added successfully");
-                                                                            window.location.href = encodeURI(DOMAIN+"/client.php?msg=A new Device is added successfully");
+                                                                            window.location.href = encodeURI(DOMAIN+"/client.php?msg=A New Device Is Added Successfully");
                                                                             clearDevicefield(); 
                                                                         }
                                                                     }
