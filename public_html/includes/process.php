@@ -100,6 +100,18 @@ if (isset($_POST["updateDepartment"])) {
 	echo json_encode($result);
 	exit();
 }
+if (isset($_POST["currentDepartment"])) {
+	$m = new Manage();
+	$result = $m->getSingleRecord("department","did",$_POST["id"]);
+	echo json_encode($result);
+	exit();
+}
+if (isset($_POST["getdepartmentname"])){
+	$m = new Manage();
+	$result = $m->getSingleRecord("department","did",$_POST["id"]);
+	echo json_encode($result);
+	exit();
+}
 if (isset($_POST["update_department"])) {
 	$m = new Manage();
 	$id = $_POST["did"];

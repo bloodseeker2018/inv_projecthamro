@@ -9,7 +9,7 @@ $(document).ready(function(){
             data : {manageDepartment:1,pageno:pn},
             success : function(data){
                 $("#get_department").html(data);
-                //alert(data);
+                
             }
         })
     }
@@ -24,66 +24,76 @@ $(document).ready(function(){
             $.ajax({
                 url : DOMAIN+"/includes/process.php",
                 method : "POST",
-                data : { deleteDepartment: 1 ,id: tid },
+                dataType : "json",
+                data : {currentDepartment:1,id:tid},
                 success : function(data){
-                    if ($.trim(data) == "DEPENDENTDEPARTMENT") {
-                        alert("Sorry But This Department Is Root Of Another Department");
-                        //window.location.href = encodeURI(DOMAIN+"/manage_department.php?msg=Sorry but this Department is Root of another Department");
-                    }else if($.trim(data) == "DEPARTMENTDELETED"){
-                        //alert("Department Deleted Successfully");
-                        manageDepartment(1);
-                        var beforepromsg = "A old <b>Department</b>";                        
-                        var afterpromsg = " was deleted successfully";
-                        var promsg = beforepromsg+afterpromsg;
-                        $.ajax({
-                            url : DOMAIN+"/includes/processmessage.php",
-                            type: "post",
-                            data: { promsg: promsg },
-                            success: function(data){
-                                //alert(data);/*do some thing in second function*/
+                    console.log(data);                    
+                    var currentdepartmentname = data["department_name"];
+                    $.ajax({
+                        url : DOMAIN+"/includes/process.php",
+                        method : "POST",
+                        data : { deleteDepartment: 1 ,id: tid },
+                        success : function(data){
+                            if ($.trim(data) == "DEPENDENTDEPARTMENT") {
+                                alert("Sorry But This Department Is Root Of Another Department");
+                                //window.location.href = encodeURI(DOMAIN+"/manage_department.php?msg=Sorry but this Department is Root of another Department");
+                            }else if($.trim(data) == "DEPARTMENTDELETED"){
+                                //alert("Department Deleted Successfully");
+                                manageDepartment(1);
+                                var beforepromsg = "A old <b>Department</b> ( ";                        
+                                var afterpromsg = " ) was deleted successfully";
+                                var promsg = beforepromsg+currentdepartmentname+afterpromsg;
                                 $.ajax({
-                                url : DOMAIN+"/includes/messagesession.php",
-                                method : "GET",
-                                data : data,
+                                    url : DOMAIN+"/includes/processmessage.php",
+                                    type: "post",
+                                    data: { promsg: promsg },
                                     success: function(data){
-                                        if ($.trim(data) === "Administrator"){
-                                            //alert("New Department added successfully");
-                                            window.location.href = encodeURI(DOMAIN+"/manage_department.php?msg=A Old Department Was Deleted Successfully");                                            
-                                        }
+                                        //alert(data);/*do some thing in second function*/
+                                        $.ajax({
+                                        url : DOMAIN+"/includes/messagesession.php",
+                                        method : "GET",
+                                        data : data,
+                                            success: function(data){
+                                                if ($.trim(data) === "Administrator"){
+                                                    //alert("New Department added successfully");
+                                                    window.location.href = encodeURI(DOMAIN+"/manage_department.php?msg=A Old Department Was Deleted Successfully");                                            
+                                                }
+                                            }
+                                        });
                                     }
-                                });
-                            }
-                        });                     
-                    }else if($.trim(data) == "DELETED"){
-                      //  alert("Department Deleted Successfully");
-                        var beforepromsg = "<b>Department</b> ( ";                        
-                        var afterpromsg = " was deleted successfully";
-                        var promsg = beforepromsg+afterpromsg;
-                        $.ajax({
-                            url : DOMAIN+"/includes/processmessage.php",
-                            type: "post",
-                            data: { promsg: promsg },
-                            success: function(data){
-                                //alert(data);/*do some thing in second function*/
+                                });                     
+                            }else if($.trim(data) == "DELETED"){
+                              //  alert("Department Deleted Successfully");
+                                var beforepromsg = "<b>Department</b> ( ";                        
+                                var afterpromsg = " was deleted successfully";
+                                var promsg = beforepromsg+afterpromsg;
                                 $.ajax({
-                                url : DOMAIN+"/includes/messagesession.php",
-                                method : "GET",
-                                data : data,
+                                    url : DOMAIN+"/includes/processmessage.php",
+                                    type: "post",
+                                    data: { promsg: promsg },
                                     success: function(data){
-                                        if ($.trim(data) === "Administrator"){
-                                            //alert("New Department added successfully");
-                                            window.location.href = encodeURI(DOMAIN+"/manage_department.php?msg=A Department Was Deleted Successfully");                                            
-                                        }
+                                        //alert(data);/*do some thing in second function*/
+                                        $.ajax({
+                                        url : DOMAIN+"/includes/messagesession.php",
+                                        method : "GET",
+                                        data : data,
+                                            success: function(data){
+                                                if ($.trim(data) === "Administrator"){
+                                                    //alert("New Department added successfully");
+                                                    window.location.href = encodeURI(DOMAIN+"/manage_department.php?msg=A Department Was Deleted Successfully");                                            
+                                                }
+                                            }
+                                        });
                                     }
-                                });
+                                });                        
+                            }else{
+                                alert(data);
                             }
-                        });                        
-                    }else{
-                        alert(data);
-                    }
-                        
+                                
+                        }
+                    });                
                 }
-            });
+            });          
         }else{
             window.location.href = encodeURI(DOMAIN+"/manage_department.php?msg=Nothing Was Changed");
         }        
@@ -181,7 +191,7 @@ $(document).ready(function(){
                             $("#error_udepartment").text("");
                             fetch_department();
                             var beforepromsg = "The old <b>Department</b> ( ";
-                            var middlepromsg = $("#update_department").val();
+                            var middlepromsg = $("#update_department").val();                            
                             var afterpromsg = " ) updated successfully";
                             var promsg = beforepromsg+middlepromsg+afterpromsg;
                             $.ajax({
