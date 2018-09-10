@@ -68,7 +68,7 @@ $(document).ready(function(){
             success : function(data){
                 console.log(data);
                 $("#did").val(data["did"]);
-                $("#department_name").val(data["department_name"]);
+                $("#update_department").val(data["department_name"]);
                 $("#parent_dep").val(data["parent_dep"]);
             }
         })

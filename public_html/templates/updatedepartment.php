@@ -3,7 +3,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add New Department</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Edit current Department</h5>
         <button type="button" name="department_dismiss1" id="department_dismiss1" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -13,18 +13,18 @@
             <div class="form-group">
               <label>Department Name</label>
               <input type="hidden" name="did" id="did" value=""/>
-              <input type="text" class="form-control" name="department_name" id="department_name" placeholder="Input Your Department">
+              <input type="text" class="form-control" name="update_department" id="update_department" placeholder="Input Your Department">
               <span id="error_department" class="text-danger" style="font-size: 12px;"></span>
-              <!--  <script type="text/javascript">
+                <script type="text/javascript">
                   document.getElementById("department_name").addEventListener("input", forceLower);
                       function forceLower(evt) {
                         var words = evt.target.value.toLowerCase().split(/\s+/g);
                         var newWords = words.map(function(element){
                           return element !== "" ?  element[0].toUpperCase() + element.substr(1, element.length) : "";
                         });
-                       evt.target.value = newWords.join(" "); 
+                        evt.target.value = newWords.join(" "); 
                       }
-                </script> -->
+                </script>
             </div>
             <div class="form-group">
               <label>Parent Department</label>
