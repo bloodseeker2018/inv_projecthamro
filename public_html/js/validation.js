@@ -458,11 +458,11 @@ $(document).ready(function(){
                         } else if ($.trim(data) === "ADMINISTRATOR"){
                             $(".overlay").hide();                         
                             //alert("You have successfully Login as Administrator");                                
-                            window.location.href = encodeURI(DOMAIN+"/dashboard.php?msg=Welcome Administrator to ADBL Inventory Management System");
+                            window.location.href = encodeURI(DOMAIN+"/dashboard.php?msg=Welcome To ADBL Inventory Management System Administrator");
                         } else if ($.trim(data) === "NORMALUSER"){
                             $(".overlay").hide();
                             //alert("You have successfully Logged in as Normal User");
-                            window.location.href = encodeURI(DOMAIN+"/client.php?msg=Welcome User to ADBL Inventory Management System")
+                            window.location.href = encodeURI(DOMAIN+"/client.php?msg=Welcome To ADBL Inventory Management System User");
                         }                        
                     }
                 });
@@ -553,67 +553,84 @@ $(document).ready(function(){
     });     
     $("#department_form").on("submit",function(){
         var sPardep = $('#parent_dep').val();
+        var sDepname = $('#department_name').val();
         if ($("#department_name").val() == '') {
             $("#department_name").css("border-color", "#cd2d00");
             $('#submitdep').attr('disabled', true);
             $("#error_department").text("Enter a Department Name");
-        } if ($.trim(sPardep).length == ""){
-                $("#parent_dep").css("border-color", "#cd2d00");
-                $('#submitdep').attr('disabled', true);
-                $("#error_parentdep").text("Select a Parent Department");               
-            } else {
-                $("#parent_dep").css("border-color", "#2eb82e");
-                $('#submitdep').attr('disabled', false);
-                $("#error_parentdep").text("");
-        } if (!($('#submitdep').is('disabled', true))){
-            if (($("#department_name").val() !== '' && ($("#parent_dep").val() !== ""))) {
-                $.ajax({
-                    url : DOMAIN+"/includes/process.php",
-                    method : "POST",
-                    data : $("#department_form").serialize(),
-                    success : function(data){
-                        if ($.trim(data) === "DEPARTMENTADDED"){                        
-                            $("#department_name").css("border-color", "");
-                            $("#error_department").text("");
-                            fetch_department();
-                            var beforepromsg = "A new <b>Department</b> ( ";
-                            var middlepromsg = $("#department_name").val();
-                            var afterpromsg = " ) added successfully";
-                            var promsg = beforepromsg+middlepromsg+afterpromsg;
-                            $.ajax({
-                                url : DOMAIN+"/includes/processmessage.php",
-                                type: "post",
-                                data: { promsg: promsg },
-                                success: function(data){
-                                    //alert(data);/*do some thing in second function*/
-                                    $.ajax({
-                                    url : DOMAIN+"/includes/messagesession.php",
-                                    method : "GET",
-                                    data : data,
-                                        success: function(data){
-                                            if ($.trim(data) === "Administrator"){
-                                                //alert("New Department added successfully");
-                                                window.location.href = encodeURI(DOMAIN+"/dashboard.php?msg=A New Department Is Added Successfully");
-                                                $("#department_name").val('');
-                                            } else {
-                                                //alert("New Department added successfully");
-                                                window.location.href = encodeURI(DOMAIN+"/client.php?msg=A New Department Is Added Successfully");
-                                                $("#department_name").val(''); 
-                                            }
-                                        }
-                                    });
-                                }
-                            });                            
-                        } else {
-                            $("#department_name").val('');
-                            $("#department_name").css("border-color", "#cd2d00");
-                            $('#submitdep').attr('disabled', true);                    
-                            $("#error_department").text(data);
-                            alert(data);
-                        }
-                    }
-                });
+        } else {
+            $("#department_name").css("border-color", "#2eb82e");
+            $("#error_department").text("");
+            if (!($.trim(sPardep).length == 0)){                
+                $('#submitdep').attr('disabled', false);                
             }
+        }
+        if ($.trim(sPardep).length == ""){
+            $("#parent_dep").css("border-color", "#cd2d00");
+            $('#submitdep').attr('disabled', true);
+            $("#error_parentdep").text("Select a Parent Department");               
+        } else {
+            $("#parent_dep").css("border-color", "#2eb82e");
+            $("#error_parentdep").text("");
+            if (!($.trim(sDepname).length == 0)){
+                $('#submitdep').attr('disabled', false);    
+            }            
+        } 
+        if (!($.trim(sPardep).length == 0)){
+            if (!($.trim(sDepname).length == 0)){
+                if (!($('#submitdep').is('disabled', true))){
+                    $.ajax({
+                        url : DOMAIN+"/includes/process.php",
+                        method : "POST",
+                        data : $("#department_form").serialize(),
+                        success : function(data){
+                            if ($.trim(data) === "DEPARTMENTADDED"){                        
+                                $("#department_name").css("border-color", "");
+                                $("#error_department").text("");
+                                fetch_department();
+                                var beforepromsg = "A new <b>Department</b> ( ";
+                                var middlepromsg = $("#department_name").val();
+                                var afterpromsg = " ) added successfully";
+                                var promsg = beforepromsg+middlepromsg+afterpromsg;
+                                $.ajax({
+                                    url : DOMAIN+"/includes/processmessage.php",
+                                    type: "post",
+                                    data: { promsg: promsg },
+                                    success: function(data){
+                                        //alert(data);/*do some thing in second function*/
+                                        $.ajax({
+                                        url : DOMAIN+"/includes/messagesession.php",
+                                        method : "GET",
+                                        data : data,
+                                            success: function(data){
+                                                if ($.trim(data) === "Administrator"){
+                                                    //alert("New Department added successfully");
+                                                    window.location.href = encodeURI(DOMAIN+"/dashboard.php?msg=A New Department Is Added Successfully");
+                                                    $("#department_name").val('');
+                                                } else {
+                                                    //alert("New Department added successfully");
+                                                    window.location.href = encodeURI(DOMAIN+"/client.php?msg=A New Department Is Added Successfully");
+                                                    $("#department_name").val(''); 
+                                                }
+                                            }
+                                        });
+                                    }
+                                });                            
+                            } else {                            
+                                $("#department_name").css("border-color", "#cd2d00");
+                                $('#submitdep').attr('disabled', true);                    
+                                $("#error_department").text(data);
+                                alert(data);
+                                $("#department_name").val('');
+                            }
+                        }
+                    });
+                }
+            } else {
+                $('#submitdep').attr('disabled', true);
+            }
+        } else {
+            $('#submitdep').attr('disabled', true);
         }
     });
     $("#branch_name").focusout(function () {

@@ -40,7 +40,7 @@ $(document).ready(function(){
                             }else if($.trim(data) == "DEPARTMENTDELETED"){
                                 //alert("Department Deleted Successfully");
                                 manageDepartment(1);
-                                var beforepromsg = "A old <b>Department</b> ( ";                        
+                                var beforepromsg = "The old <b>Department</b> ( ";                        
                                 var afterpromsg = " ) was deleted successfully";
                                 var promsg = beforepromsg+currentdepartmentname+afterpromsg;
                                 $.ajax({
@@ -64,9 +64,9 @@ $(document).ready(function(){
                                 });                     
                             }else if($.trim(data) == "DELETED"){
                               //  alert("Department Deleted Successfully");
-                                var beforepromsg = "<b>Department</b> ( ";                        
-                                var afterpromsg = " was deleted successfully";
-                                var promsg = beforepromsg+afterpromsg;
+                                var beforepromsg = "A <b>Department</b> ( ";                        
+                                var afterpromsg = " ) was deleted successfully";
+                                var promsg = beforepromsg+currentdepartmentname+afterpromsg;
                                 $.ajax({
                                     url : DOMAIN+"/includes/processmessage.php",
                                     type: "post",
@@ -190,7 +190,7 @@ $(document).ready(function(){
                             $("#update_department").css("border-color", "");
                             $("#error_udepartment").text("");
                             fetch_department();
-                            var beforepromsg = "The old <b>Department</b> ( ";
+                            var beforepromsg = "A new <b>Department</b> ( ";
                             var middlepromsg = $("#update_department").val();                            
                             var afterpromsg = " ) updated successfully";
                             var promsg = beforepromsg+middlepromsg+afterpromsg;
@@ -207,7 +207,7 @@ $(document).ready(function(){
                                         success: function(data){
                                             if ($.trim(data) === "Administrator"){
                                                 //alert("New Department added successfully");
-                                                window.location.href = encodeURI(DOMAIN+"/manage_department.php?msg=The Old Department Was Updated Successfully");
+                                                window.location.href = encodeURI(DOMAIN+"/manage_department.php?msg=A Old Department Was Updated Successfully");
                                                 $("#update_department").val('');
                                             }
                                         }
