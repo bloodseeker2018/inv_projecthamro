@@ -105,8 +105,20 @@ $(document).ready(function(){
             method : "POST",
             data : {getDepartment:1},
             success : function(data){
-                var rooted = "<option value='0'>Root</option>";
-                $("#parent_dep").html(rooted+data);
+                var choose = "<option value='' selected hidden disabled>Select a Branch</option>";
+                $("#uselect_dep").html(choose+data);
+            }
+        });
+    }
+    fetch_branch();
+    function fetch_branch(){
+        $.ajax({
+            url : DOMAIN+"/includes/process.php",
+            method : "POST",
+            data : {getBranch:1},
+            success : function(data){
+                var choose = "<option value='' selected hidden disabled>Select a Branch</option>";
+                $("#uselect_branch").html(choose+data);
             }
         });
     }
@@ -218,8 +230,7 @@ $(document).ready(function(){
                             $("#update_department").val('');
                             $("#update_department").css("border-color", "#cd2d00");
                             $('#submitdep').attr('disabled', true);                    
-                            $("#error_udepartment").text(data);
-                            alert(data);
+                            $("#error_udepartment").text("Invalid Department Name");                            
                         }
                     }
                 });
@@ -263,7 +274,7 @@ $(document).ready(function(){
                             if($.trim(data) == "DELETED"){
                                 manageBranch(1);
                               //  alert("Department Deleted Successfully");
-                                var beforepromsg = "A <b>Branch</b> ( ";                        
+                                var beforepromsg = "A old <b>Branch</b> ( ";                        
                                 var afterpromsg = " ) was deleted successfully";
                                 var promsg = beforepromsg+currentbranchname+afterpromsg;
                                 $.ajax({
@@ -366,7 +377,7 @@ $(document).ready(function(){
                                     success: function(data){
                                         if ($.trim(data) === "Administrator"){
                                             //alert("New Department added successfully");
-                                            window.location.href = encodeURI(DOMAIN+"/manage_branch.php?msg=A Old Branch Was Updated Successfully");
+                                            window.location.href = encodeURI(DOMAIN+"/manage_branch.php?msg=A old Branch Was Updated Successfully");
                                             $("#update_branch").val('');
                                         }
                                     }
@@ -377,11 +388,99 @@ $(document).ready(function(){
                         $("#update_branch").val('');
                         $("#update_branch").css("border-color", "#cd2d00");
                         $('#submitbranch').attr('disabled', true);                    
-                        $("#error_ubranch").text(data);
-                        alert(data);
+                        $("#error_ubranch").text("Invalid Branch Name");                        
                     }
                 }
             });            
         }
+    });
+    manageDevice(1);
+    function manageDevice(pn){
+        $.ajax({
+            url : DOMAIN+"/includes/process.php",
+            method : "POST",
+            data : {manageDevice:1,pageno:pn},
+            success : function(data){
+                $("#get_device").html(data);
+                
+            }
+        });
+    }
+    $("body").delegate(".page-link","click",function(){
+        var pn = $(this).attr("pn");
+        manageDevice(pn);
+    });
+    $("body").delegate(".delete_device","click",function(){
+        var tid = $(this).attr("tid");
+        //alert(tid);
+        if (confirm("Do You Surely Want To Delete This Device?")) {
+            $.ajax({
+                url : DOMAIN+"/includes/process.php",
+                method : "POST",
+                dataType : "json",
+                data : {currentDevice:1,id:tid},
+                success : function(data){
+                    console.log(data);                    
+                    var currentdevicename = data["device_name"];
+                    $.ajax({
+                        url : DOMAIN+"/includes/process.php",
+                        method : "POST",
+                        data : { deleteDevice: 1 ,id: tid },
+                        success : function(data){
+                            if($.trim(data) == "DELETED"){
+                                manageDevice(1);
+                              //  alert("Department Deleted Successfully");
+                                var beforepromsg = "A old <b>Device</b> ( ";                        
+                                var afterpromsg = " ) was deleted successfully";
+                                var promsg = beforepromsg+currentdevicename+afterpromsg;
+                                $.ajax({
+                                    url : DOMAIN+"/includes/processmessage.php",
+                                    type: "post",
+                                    data: { promsg: promsg },
+                                    success: function(data){
+                                        //alert(data);/*do some thing in second function*/
+                                        $.ajax({
+                                        url : DOMAIN+"/includes/messagesession.php",
+                                        method : "GET",
+                                        data : data,
+                                            success: function(data){
+                                                if ($.trim(data) === "Administrator"){
+                                                    //alert("New Department added successfully");
+                                                    window.location.href = encodeURI(DOMAIN+"/manage_device.php?msg=A Device Was Deleted Successfully");                                            
+                                                }
+                                            }
+                                        });
+                                    }
+                                });                        
+                            }else{
+                                alert(data);
+                            }                                
+                        }
+                    });                
+                }
+            });          
+        }else{
+            window.location.href = encodeURI(DOMAIN+"/manage_device.php?msg=Nothing Was Changed");
+        }        
+    });
+    $("body").delegate(".edit_device","click",function(){
+        var eid = $(this).attr("eid");
+        $.ajax({
+            url : DOMAIN+"/includes/process.php",
+            method : "POST",
+            dataType : "json",
+            data : {updateDevice:1,id:eid},
+            success : function(data){
+                console.log(data);
+                $("#pid").val(data["pid"]);
+                $("#update_device").val(data["device_name"]);
+                $("#udevice_brand").val(data["device_brand"]);
+                $("#udevice_model").val(data["device_model"]);
+                $("#uselect_branch").val(data["bid"]);
+                $("#uselect_dep").val(data["did"]);
+                $("#udevice_installationdate").val(data["added_date"]);
+                $("#uremarks").val(data["remarks"]);               
+            }
+        })
     });
 });    

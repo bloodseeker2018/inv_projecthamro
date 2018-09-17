@@ -15,6 +15,8 @@ class Manage
 		$a = $this->pagination($this->con,$table,$pno,5);
 		if ($table == "department"){
 			$sql = "SELECT p.did,p.department_name as departments, c.department_name as parent, p.status FROM department p LEFT JOIN department c ON p.parent_dep=c.did ".$a["limit"];
+		} else if ($table == "devices"){
+			$sql = "SELECT p.pid,p.device_name,p.device_brand,p.device_model,b.branch_name,d.department_name,p.added_date,p.remarks,p.d_status FROM devices p,branchs b,department d WHERE p.bid = b.bid AND p.did = d.did ".$a["limit"];
 		} else {
 			$sql = "SELECT * FROM ".$table." ".$a["limit"];
 		}

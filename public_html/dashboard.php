@@ -113,7 +113,7 @@ if (!isset($_SESSION["id"])){
 				        		<h5 class="card-title">Device</h5>
 				        		<p class="card-text">Here you can add or manage all Office Devices</p>
 				        		<a href="#" data-toggle="modal" data-target="#form_device" class="btn btn-primary mx-auto dashboardbtn"><i class="fa fa-plus">&nbsp;</i>Add</a>
-				        		<a href="#" class="btn btn-primary mx-auto dashboardbtn"><i class="fa fa-edit">&nbsp;</i>Manage</a>
+				        		<a href="manage_device.php" class="btn btn-primary mx-auto dashboardbtn"><i class="fa fa-edit">&nbsp;</i>Manage</a>
 				      		</div>
 						</div>					
 				</div>				
