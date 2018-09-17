@@ -15,6 +15,8 @@ class Manage
 		$a = $this->pagination($this->con,$table,$pno,5);
 		if ($table == "department"){
 			$sql = "SELECT p.did,p.department_name as departments, c.department_name as parent, p.status FROM department p LEFT JOIN department c ON p.parent_dep=c.did ".$a["limit"];
+		} else {
+			$sql = "SELECT * FROM ".$table." ".$a["limit"];
 		}
 		$result = $this->con->query($sql) or die($this->con->error);
 		$rows = array();

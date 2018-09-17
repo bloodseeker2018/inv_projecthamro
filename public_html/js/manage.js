@@ -19,7 +19,7 @@ $(document).ready(function(){
     	manageDepartment(pn);
     })
     $("body").delegate(".delete_dep","click",function(){
-    	var tid = $(this).attr("tid");
+        var tid = $(this).attr("tid");
     	if (confirm("Do You Surely Want To Delete This Department?")) {
             $.ajax({
                 url : DOMAIN+"/includes/process.php",
@@ -224,6 +224,164 @@ $(document).ready(function(){
                     }
                 });
             }
+        }
+    });
+
+    manageBranch(1);
+    function manageBranch(pn){
+        $.ajax({
+            url : DOMAIN+"/includes/process.php",
+            method : "POST",
+            data : {manageBranch:1,pageno:pn},
+            success : function(data){
+                $("#get_branch").html(data);
+                
+            }
+        })
+    }
+    $("body").delegate(".page-link","click",function(){
+        var pn = $(this).attr("pn");
+        manageBranch(pn);
+    })
+    $("body").delegate(".delete_branch","click",function(){
+        var tid = $(this).attr("tid");
+        //alert(tid);
+        if (confirm("Do You Surely Want To Delete This Branch?")) {
+            $.ajax({
+                url : DOMAIN+"/includes/process.php",
+                method : "POST",
+                dataType : "json",
+                data : {currentBranch:1,id:tid},
+                success : function(data){
+                    console.log(data);                    
+                    var currentbranchname = data["branch_name"];
+                    $.ajax({
+                        url : DOMAIN+"/includes/process.php",
+                        method : "POST",
+                        data : { deleteBranch: 1 ,id: tid },
+                        success : function(data){
+                            if($.trim(data) == "DELETED"){
+                                manageBranch(1);
+                              //  alert("Department Deleted Successfully");
+                                var beforepromsg = "A <b>Branch</b> ( ";                        
+                                var afterpromsg = " ) was deleted successfully";
+                                var promsg = beforepromsg+currentbranchname+afterpromsg;
+                                $.ajax({
+                                    url : DOMAIN+"/includes/processmessage.php",
+                                    type: "post",
+                                    data: { promsg: promsg },
+                                    success: function(data){
+                                        //alert(data);/*do some thing in second function*/
+                                        $.ajax({
+                                        url : DOMAIN+"/includes/messagesession.php",
+                                        method : "GET",
+                                        data : data,
+                                            success: function(data){
+                                                if ($.trim(data) === "Administrator"){
+                                                    //alert("New Department added successfully");
+                                                    window.location.href = encodeURI(DOMAIN+"/manage_branch.php?msg=A Branch Was Deleted Successfully");                                            
+                                                }
+                                            }
+                                        });
+                                    }
+                                });                        
+                            }else{
+                                alert(data);
+                            }                                
+                        }
+                    });                
+                }
+            });          
+        }else{
+            window.location.href = encodeURI(DOMAIN+"/manage_branch.php?msg=Nothing Was Changed");
+        }        
+    });
+    $("body").delegate(".edit_branch","click",function(){
+        var eid = $(this).attr("eid");
+        $.ajax({
+            url : DOMAIN+"/includes/process.php",
+            method : "POST",
+            dataType : "json",
+            data : {updateBranch:1,id:eid},
+            success : function(data){
+                console.log(data);
+                $("#bid").val(data["bid"]);
+                $("#update_branch").val(data["branch_name"]);                
+            }
+        })
+    })
+    $("#update_branch").focusout(function () {
+        var sBranchs = $('#update_branch').val();
+        if ($.trim(sBranchs).length == 0) {
+            $(this).css("border-color", "#cd2d00");
+            $('#submitbranch').attr('disabled', true);
+            $("#error_ubranch").text("Enter a Branch Name");          
+        } else {
+            $(this).css("border-color", "#2eb82e");
+            $('#submitbranch').attr('disabled', false);
+            $("#error_ubranch").text("");
+        }
+    });
+    function dismissBranchaction(){
+       $("#update_branch").css("border-color", "");  
+        $("#update_branch").val('');
+        $("#error_ubranch").text("");
+        $('#submitbranch').attr('disabled', false); 
+    }
+    $("#ubranch_dismiss2").click(function() {
+        dismissBranchaction();
+    });
+    $("#ubranch_dismiss1").click(function() {
+        dismissBranchaction();
+    });
+    $("#update_branch_form").on("submit",function(){
+        if ($("#update_branch").val() == '') {
+            $("#update_branch").css("border-color", "#cd2d00");
+            $('#submitbranch').attr('disabled', true);
+            $("#error_ubranch").text("Enter a Branch Name");
+        } else {
+            $.ajax({
+                url : DOMAIN+"/includes/process.php",
+                method : "POST",
+                data : $("#update_branch_form").serialize(),
+                success : function(data){
+                    if ($.trim(data) === "UPDATED"){                        
+                        $("#update_branch").css("border-color", "");
+                        $("#error_udepartment").text("");
+                        fetch_department();
+                        var beforepromsg = "A new <b>Branch</b> ( ";
+                        var middlepromsg = $("#update_branch").val();                            
+                        var afterpromsg = " ) updated successfully";
+                        var promsg = beforepromsg+middlepromsg+afterpromsg;
+                        $.ajax({
+                            url : DOMAIN+"/includes/processmessage.php",
+                            type: "post",
+                            data: { promsg: promsg },
+                            success: function(data){
+                                //alert(data);/*do some thing in second function*/
+                                $.ajax({
+                                url : DOMAIN+"/includes/messagesession.php",
+                                method : "GET",
+                                data : data,
+                                    success: function(data){
+                                        if ($.trim(data) === "Administrator"){
+                                            //alert("New Department added successfully");
+                                            window.location.href = encodeURI(DOMAIN+"/manage_branch.php?msg=A Old Branch Was Updated Successfully");
+                                            $("#update_branch").val('');
+                                        }
+                                    }
+                                });
+                            }
+                        });                            
+                    } else {
+                        $("#update_branch").val('');
+                        $("#update_branch").css("border-color", "#cd2d00");
+                        $('#submitbranch').attr('disabled', true);                    
+                        $("#error_ubranch").text(data);
+                        alert(data);
+                    }
+                }
+            });            
         }
     });
 });    
