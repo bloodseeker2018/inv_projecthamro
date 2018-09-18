@@ -810,36 +810,6 @@ $(document).ready(function(){
             $("#error_deviceremarks").text("");
         }   
     });
-    function deviceDismissAction(){
-        $("#device_name").val('');
-        $("#device_name").css("border-color", "");                                                        
-        $("#error_devicename").text("");
-        $("#device_brand").val('');
-        $("#device_brand").css("border-color", "");                                                        
-        $("#error_devicebrand").text("");
-        $("#device_model").val('');
-        $("#device_model").css("border-color", "");                                                        
-        $("#error_devicemodel").text("");
-        $("#select_branch").val('');
-        $("#select_branch").css("border-color", "");                                                        
-        $("#error_devicebranch").text("");
-        $("#select_dep").val('');
-        $("#select_dep").css("border-color", "");                                                        
-        $("#error_devicedepartment").text("");
-        $("#remarks").val('');
-        $("#remarks").css("border-color", "");                                                        
-        $("#error_deviceremarks").text("");
-        $("#device_installationdate").val('');
-        $("#device_installationdate").css("border-color", "");                                                        
-        $("#error_devicedoi").text("");
-        $('#submitdev').attr('disabled', false);
-    }
-    $("#device_dismiss1").click(function() {
-      deviceDismissAction();  
-    });
-    $("#device_dismiss2").click(function() {
-        deviceDismissAction();
-    });
     function clearDevicefield(){
         $("#device_name").val('');
         $("#device_name").css("border-color", "");                                                        
@@ -862,7 +832,17 @@ $(document).ready(function(){
         $("#device_installationdate").val('');
         $("#device_installationdate").css("border-color", "");                                                        
         $("#error_devicedoi").text("");
-}
+    }
+    function deviceDismissAction(){
+        clearDevicefield();
+        $('#submitdev').attr('disabled', false);
+    }
+    $("#device_dismiss1").click(function() {
+      deviceDismissAction();  
+    });
+    $("#device_dismiss2").click(function() {
+        deviceDismissAction();
+    });
     $("#device_form").on("submit",function(){
         var sDevicename = $('#device_name').val();
         var sDevicebrand = $('#device_brand').val();
@@ -986,5 +966,5 @@ $(document).ready(function(){
         } else {
             $('#submitdev').attr('disabled', true);
         }        
-    })        
+    });        
 });

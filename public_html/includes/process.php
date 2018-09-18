@@ -231,9 +231,16 @@ if (isset($_POST["updateDevice"])) {
 }
 if (isset($_POST["update_device"])) {
 	$m = new Manage();
-	$id = $_POST["pid"];
+	$id = $_SESSION["id"];
+	$pid = $_POST["pid"];
 	$name = $_POST["update_device"];
-	$result = $m->update_record("devices",["pid"=>$id],[]);
+	$dep = $_POST["uselect_dep"];
+	$branch = $_POST["uselect_branch"];
+	$brand = $_POST["udevice_brand"];
+	$model = $_POST["udevice_model"];
+	$date = $_POST["udevice_installationdate"];
+	$remarks = $_POST["uremarks"];
+	$result = $m->update_record("devices",["pid"=>$pid],["id"=>$id, "did"=>$dep, "bid"=>$branch, "device_name"=>$name, "device_brand"=>$brand, "device_model"=>$model, "added_date"=>$date, "remarks"=>$remarks]);
 	echo $result;
 }
 //$obj = new Manage();

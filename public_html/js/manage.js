@@ -106,6 +106,9 @@ $(document).ready(function(){
             data : {getDepartment:1},
             success : function(data){
                 var choose = "<option value='' selected hidden disabled>Select a Branch</option>";
+                var rooted = "<option value='0'>Root</option>";
+                var rootes = "<option value='' selected hidden disabled>Select a Parent Department</option>";
+                $("#parent_dep").html(rootes+rooted+data);
                 $("#uselect_dep").html(choose+data);
             }
         });
@@ -482,5 +485,261 @@ $(document).ready(function(){
                 $("#uremarks").val(data["remarks"]);               
             }
         })
+    });
+    $("#update_device").focusout(function () {
+        var usDevicename = $('#update_device').val();
+        if ($.trim(usDevicename).length == 0) {
+            $(this).css("border-color", "#cd2d00");
+            $('#usubmitdev').attr('disabled', true);
+            $("#uerror_devicename").text("Enter a Device Name");          
+        } else {
+            $(this).css("border-color", "#2eb82e");
+            $('#usubmitdev').attr('disabled', false);
+            $("#uerror_devicename").text("");
+        }   
+    });
+    $("#udevice_brand").focusout(function () {
+        var usDevicebrand = $('#udevice_brand').val();
+        if ($.trim(usDevicebrand).length == 0) {
+            $(this).css("border-color", "#cd2d00");
+            $('#usubmitdev').attr('disabled', true);
+            $("#uerror_devicebrand").text("Enter the Device Brand");          
+        } else {
+            $(this).css("border-color", "#2eb82e");
+            $('#usubmitdev').attr('disabled', false);
+            $("#uerror_devicebrand").text("");
+        }   
+    });
+    $("#udevice_model").focusout(function () {
+        var usDevicemodel = $('#udevice_model').val();
+        if ($.trim(usDevicemodel).length == 0) {
+            $(this).css("border-color", "#cd2d00");
+            $('#usubmitdev').attr('disabled', true);
+            $("#uerror_devicemodel").text("Enter the Device Model No.");          
+        } else {
+            $(this).css("border-color", "#2eb82e");
+            $('#usubmitdev').attr('disabled', false);
+            $("#uerror_devicemodel").text("");
+        }   
+    });
+    function uvalidateSelectbranch(){
+        if (document.update_device_form.uselect_branch.value == ""){
+            return false;
+        } else {
+            return true;
+        }
+    }
+    $("#uselect_branch").focusout(function () {
+        if (!uvalidateSelectbranch()){
+            $("#uselect_branch").css("border-color", "#cd2d00");
+            $('#usubmitdev').attr('disabled', true);
+            $("#uerror_devicebranch").text("Select a Branch");               
+        } else {
+            $("#uselect_branch").css("border-color", "#2eb82e");
+            $('#usubmitdev').attr('disabled', false);
+            $("#uerror_devicebranch").text("");
+        }
+    });
+    function uvalidateSelectdepartment(){
+        if (document.update_device_form.uselect_dep.value == ""){
+            return false;
+        } else {
+            return true;
+        }
+    }
+    $("#select_dep").focusout(function () {
+        if (!uvalidateSelectdepartment()){
+            $(this).css("border-color", "#cd2d00");
+            $('#usubmitdev').attr('disabled', true);
+            $("#uerror_devicedepartment").text("Select a Department");               
+        } else {
+            $(this).css("border-color", "#2eb82e");
+            $('#usubmitdev').attr('disabled', false);
+            $("#uerror_devicedepartment").text("");
+        }
+    });
+    $("#udevice_installationdate").focusout(function () {
+        var usDeviceinstallationdate = $('#udevice_installationdate').val();
+        if ($.trim(usDeviceinstallationdate).length == 0) {
+            $(this).css("border-color", "#cd2d00");
+            $('#usubmitdev').attr('disabled', true);
+            $("#uerror_devicedoi").text("Enter the Installation Date");          
+        } else {
+            $(this).css("border-color", "#2eb82e");
+            $('#usubmitdev').attr('disabled', false);
+            $("#uerror_devicedoi").text("");
+        }   
+    });
+    $("#uremarks").focusout(function () {
+        var usDeviceremarks = $('#uremarks').val();
+        if ($.trim(usDeviceremarks).length == 0) {
+            $(this).css("border-color", "#cd2d00");
+            $('#usubmitdev').attr('disabled', true);
+            $("#uerror_deviceremarks").text("Enter the Remarks");          
+        } else if ($.trim(usDeviceremarks).length < 3) {
+            $(this).css("border-color", "#cd2d00");
+            $('#usubmitdev').attr('disabled', true);
+            $("#uerror_deviceremarks").text("Too short Remarks");          
+        }else {
+            $(this).css("border-color", "#2eb82e");
+            $('#usubmitdev').attr('disabled', false);
+            $("#uerror_deviceremarks").text("");
+        }   
+    });
+    function uclearDevicefield(){
+        $("#update_device").val('');
+        $("#update_device").css("border-color", "");                                                        
+        $("#uerror_devicename").text("");
+        $("#udevice_brand").val('');
+        $("#udevice_brand").css("border-color", "");                                                        
+        $("#uerror_devicebrand").text("");
+        $("#udevice_model").val('');
+        $("#udevice_model").css("border-color", "");                                                        
+        $("#uerror_devicemodel").text("");
+        $("#uselect_branch").val('');
+        $("#uselect_branch").css("border-color", "");                                                        
+        $("#uerror_devicebranch").text("");
+        $("#uselect_dep").val('');
+        $("#uselect_dep").css("border-color", "");                                                        
+        $("#uerror_devicedepartment").text("");
+        $("#uremarks").val('');
+        $("#uremarks").css("border-color", "");                                                        
+        $("#uerror_deviceremarks").text("");
+        $("#udevice_installationdate").val('');
+        $("#udevice_installationdate").css("border-color", "");                                                        
+        $("#uerror_devicedoi").text("");
+    }
+    function udeviceDismissAction(){
+        uclearDevicefield();
+        $('#usubmitdev').attr('disabled', false);
+    }
+    $("#device_udismiss1").click(function() {
+      udeviceDismissAction();  
+    });
+    $("#device_udismiss2").click(function() {
+        udeviceDismissAction();
+    });
+    $("#update_device_form").on("submit",function(){
+        var usDevicename = $('#update_device').val();
+        var usDevicebrand = $('#udevice_brand').val();
+        var usDevicemodel = $('#udevice_model').val();
+        var usDeviceinstallationdate = $('#udevice_installationdate').val();
+        var usDeviceremarks = $('#uremarks').val();
+        if ($.trim(usDevicename).length == 0) {
+            $("#update_device").css("border-color", "#cd2d00");
+            $('#usubmitdev').attr('disabled', true);
+            $("#uerror_devicename").text("Enter a Device Name");          
+        }
+        if ($.trim(usDevicebrand).length == 0) {
+            $("#udevice_brand").css("border-color", "#cd2d00");
+            $('#usubmitdev').attr('disabled', true);
+            $("#uerror_devicebrand").text("Enter the Device Brand");          
+        }
+        if ($.trim(usDevicemodel).length == 0) {
+            $("#udevice_model").css("border-color", "#cd2d00");
+            $('#usubmitdev').attr('disabled', true);
+            $("#uerror_devicemodel").text("Enter the Device Model No.");          
+        }
+        if (!uvalidateSelectbranch()){
+            $("#uselect_branch").css("border-color", "#cd2d00");
+            $('#usubmitdev').attr('disabled', true);
+            $("#uerror_devicebranch").text("Select a Branch");               
+        }
+        if (!uvalidateSelectdepartment()){
+            $("#uselect_dep").css("border-color", "#cd2d00");
+            $('#usubmitdev').attr('disabled', true);
+            $("#uerror_devicedepartment").text("Select a Department");               
+        }
+        if ($.trim(usDeviceinstallationdate).length == 0) {
+            $("#udevice_installationdate").css("border-color", "#cd2d00");
+            $('#usubmitdev').attr('disabled', true);
+            $("#uerror_devicedoi").text("Enter the Installation Date");          
+        }
+        if ($.trim(usDeviceremarks).length == 0) {
+            $("#uremarks").css("border-color", "#cd2d00");
+            $('#usubmitdev').attr('disabled', true);
+            $("#uerror_deviceremarks").text("Enter the Remarks");          
+        }
+        if (!($.trim(usDevicename).length == 0)) {
+        $('#usubmitdev').attr('disabled', false);
+            if (!($.trim(usDevicebrand).length == 0)) {
+            $('#usubmitdev').attr('disabled', false);
+                if (!($.trim(usDevicemodel).length == 0)) {
+                $('#usubmitdev').attr('disabled', false);
+                    if (uvalidateSelectbranch()){
+                    $('#usubmitdev').attr('disabled', false);
+                        if (uvalidateSelectdepartment()){
+                        $('#usubmitdev').attr('disabled', false);
+                            if (!($.trim(usDeviceinstallationdate).length == 0)) {
+                            $('#usubmitdev').attr('disabled', false);
+                                if (!($.trim(usDeviceremarks).length == 0)) {
+                                $('#usubmitdev').attr('disabled', false);
+                                    if (!($.trim(usDeviceremarks).length < 3)) {
+                                    $('#usubmitdev').attr('disabled', false);
+                                        if (!($('#submit').is('disabled', true))){        
+                                            $.ajax({
+                                                url : DOMAIN+"/includes/process.php",
+                                                method : "POST",
+                                                data : $("#update_device_form").serialize(),
+                                                success : function(data){
+                                                    if ($.trim(data) === "UPDATED"){                        
+                                                    //    $("#update_branch").css("border-color", "");
+                                                    //    $("#error_udepartment").text("");
+                                                    //    fetch_department();
+                                                        var beforepromsg = "A new <b>Device</b> ( ";
+                                                        var middlepromsg = $("#update_device").val();                            
+                                                        var afterpromsg = " ) updated successfully";
+                                                        var promsg = beforepromsg+middlepromsg+afterpromsg;
+                                                        $.ajax({
+                                                            url : DOMAIN+"/includes/processmessage.php",
+                                                            type: "post",
+                                                            data: { promsg: promsg },
+                                                            success: function(data){
+                                                                //alert(data);/*do some thing in second function*/
+                                                                $.ajax({
+                                                                url : DOMAIN+"/includes/messagesession.php",
+                                                                method : "GET",
+                                                                data : data,
+                                                                    success: function(data){
+                                                                        if ($.trim(data) === "Administrator"){
+                                                                            //alert("New Department added successfully");
+                                                                            window.location.href = encodeURI(DOMAIN+"/manage_device.php?msg=A old Device Was Updated Successfully");
+                                                                           // $("#update_branch").val('');
+                                                                        }
+                                                                    }
+                                                                });
+                                                            }
+                                                        });                            
+                                                    } else {
+                                                        alert(data);                      
+                                                    }
+                                                }
+                                            });
+                                        }
+
+                                    } else {
+                                        $('#usubmitdev').attr('disabled', true);
+                                    }
+                                } else {
+                                    $('#usubmitdev').attr('disabled', true);
+                                }
+                            } else {
+                                $('#usubmitdev').attr('disabled', true);
+                            }
+                        } else {
+                            $('#usubmitdev').attr('disabled', true);
+                        }
+                    } else {
+                        $('#usubmitdev').attr('disabled', true);
+                    }
+                } else {
+                    $('#usubmitdev').attr('disabled', true);
+                }
+            } else {
+                $('#usubmitdev').attr('disabled', true);
+            }
+        } else {
+            $('#usubmitdev').attr('disabled', true);
+        }         
     });
 });    
