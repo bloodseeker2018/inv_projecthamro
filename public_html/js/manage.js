@@ -682,10 +682,7 @@ $(document).ready(function(){
                                                 method : "POST",
                                                 data : $("#update_device_form").serialize(),
                                                 success : function(data){
-                                                    if ($.trim(data) === "UPDATED"){                        
-                                                    //    $("#update_branch").css("border-color", "");
-                                                    //    $("#error_udepartment").text("");
-                                                    //    fetch_department();
+                                                    if ($.trim(data) === "UPDATED"){                       
                                                         var beforepromsg = "A new <b>Device</b> ( ";
                                                         var middlepromsg = $("#update_device").val();                            
                                                         var afterpromsg = " ) updated successfully";
@@ -694,24 +691,25 @@ $(document).ready(function(){
                                                             url : DOMAIN+"/includes/processmessage.php",
                                                             type: "post",
                                                             data: { promsg: promsg },
-                                                            success: function(data){
-                                                                //alert(data);/*do some thing in second function*/
+                                                            success: function(data){                                                                
                                                                 $.ajax({
                                                                 url : DOMAIN+"/includes/messagesession.php",
                                                                 method : "GET",
                                                                 data : data,
                                                                     success: function(data){
-                                                                        if ($.trim(data) === "Administrator"){
-                                                                            //alert("New Department added successfully");
+                                                                        if ($.trim(data) === "Administrator"){                                                                            
                                                                             window.location.href = encodeURI(DOMAIN+"/manage_device.php?msg=A old Device Was Updated Successfully");
-                                                                           // $("#update_branch").val('');
+                                                                            uclearDevicefield();   
                                                                         }
                                                                     }
                                                                 });
                                                             }
                                                         });                            
                                                     } else {
-                                                        alert(data);                      
+                                                        $("#update_device").val('');
+                                                        $("#update_device").css("border-color", "#cd2d00");
+                                                        $('#usubmitdev').attr('disabled', true);                    
+                                                        $("#uerror_devicename").text("Invalid Device Name");                      
                                                     }
                                                 }
                                             });

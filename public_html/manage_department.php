@@ -66,7 +66,10 @@ if (!isset($_SESSION["id"])){
 			        	</td>
 			      	</tr>	-->			      
 			    </tbody>
-			</table>			
+			</table>
+			<form action="departmentreports.php" method="post">			
+				<button type="submit" value="Export to Excel" id="export_excel" name="export_excel" class="btn btn-primary dashboardbtn"><i class="fa fa-file-export">&nbsp;</i>Export to Excel</button>
+			</form>			
 		</div>
 		<?php include_once("./templates/updatedepartment.php"); ?>		
 	</body>
