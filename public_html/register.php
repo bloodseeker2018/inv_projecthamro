@@ -95,7 +95,22 @@ include_once("./templates/header.php");
 				    		<option value="Normal_User">Normal User</option>				    		
 				    	</select>
 				    	<span id="error_usertype" class="text-danger" style="font-size: 12px;"></span>
-				  	</div>	
+				  	</div>
+				  	<div class="form-group mx-auto">
+				  		<label for="userbranchs">Your Branch*</label>	
+		    			<input type="text" class="form-control" name="userbranch" id="userbranch" placeholder="Your branch name" maxlength="20" data-validation="required"/>
+				              <script type="text/javascript">
+				                document.getElementById("userbranch").addEventListener("input", forceLower);
+				                    function forceLower(evt) {
+				                      var words = evt.target.value.toLowerCase().split(/\s+/g);
+				                      var newWords = words.map(function(element){
+				                        return element !== "" ?  element[0].toUpperCase() + element.substr(1, element.length) : "";
+				                      });
+				                     evt.target.value = newWords.join(" "); 
+				                    }
+				              </script>				    							    		
+		    			<span id="error_userbranch" class="text-danger" style="font-size: 12px;"></span>
+		    		</div>	
 				  	<div class="form-group">
 				 		<button type="submit" value="submit" id="submit" class="btn btn-primary dashboardbtn"><i class="fa fa-plus">&nbsp;</i>Add</button>
 				 	</div>

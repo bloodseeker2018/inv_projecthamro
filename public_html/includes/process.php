@@ -5,7 +5,7 @@ include_once("DBOperation.php");
 include_once("manage.php");
 if (isset($_POST["username"]) AND isset($_POST["usertype"])) {
 	$user = new User();
-	$result = $user->createUserAccount($_POST["username"],$_POST["firstname"],$_POST["lastname"],$_POST["password1"],$_POST["usertype"]);
+	$result = $user->createUserAccount($_POST["username"],$_POST["firstname"],$_POST["lastname"],$_POST["password1"],$_POST["usertype"],$_POST["userbranch"]);
 	echo $result;
 	exit();
 }
@@ -115,6 +115,12 @@ if (isset($_POST["currentBranch"])) {
 if (isset($_POST["currentDevice"])) {
 	$m = new Manage();
 	$result = $m->getSingleRecord("devices","pid",$_POST["id"]);
+	echo json_encode($result);
+	exit();
+}
+if (isset($_POST["currentUser"])) {
+	$m = new Manage();
+	$result = $m->getSingleRecord("user","id",$_POST["id"]);
 	echo json_encode($result);
 	exit();
 }
@@ -241,6 +247,63 @@ if (isset($_POST["update_device"])) {
 	$date = $_POST["udevice_installationdate"];
 	$remarks = $_POST["uremarks"];
 	$result = $m->update_record("devices",["pid"=>$pid],["id"=>$id, "did"=>$dep, "bid"=>$branch, "device_name"=>$name, "device_brand"=>$brand, "device_model"=>$model, "added_date"=>$date, "remarks"=>$remarks]);
+	echo $result;
+}
+if (isset($_POST["manageUsers"])){
+	$m = new Manage();
+	$result = $m->manageRecordwithpagination("user",$_POST["pageno"]);
+	$rows = $result["rows"];
+	$pagination = $result["pagination"];
+	if (count($rows) > 0) {
+		$n = (($_POST["pageno"] - 1) * 5) + 1;
+		foreach ($rows as $row){
+			?>
+				<tr>
+		        	<td><?php echo $n; ?></td>		        	
+		        	<td><?php echo $row["username"]; ?></td>
+		        	<td><?php echo $row["firstname"]; ?></td>
+		        	<td><?php echo $row["lastname"]; ?></td>
+		        	<td><?php echo $row["usertype"]; ?></td>
+		        	<td><?php echo $row["remarks"]; ?></td>
+		        	<td><?php echo $row["register_date"]; ?></td>
+		        	<td><?php echo $row["last_login"]; ?></td>
+		        	<td>
+		        		<a href="#" tid="<?php echo $row['id']; ?>"  class="btn btn-danger btn-sm delete_user ">Delete</a>
+		        		<a href="#" eid="<?php echo  $row['id']; ?>" data-toggle="modal" data-target="#form_uuser" class="btn btn-info btn-sm edit_user ">Edit</a>
+		        	</td>
+		      	</tr>
+			<?php
+			$n++;
+		}
+		?>
+			<tr><td colspan="9"><?php echo $pagination; ?></td></tr>
+		<?php
+		exit();
+	}	
+}
+if (isset($_POST["deleteUser"])) {
+	$m = new Manage();
+	$result = $m->deleteRecord("user","id",$_POST["id"]);
+	echo $result;
+	exit();
+}
+if (isset($_POST["updateUser"])) {
+	$m = new Manage();
+	$result = $m->getSingleRecord("user","id",$_POST["id"]);
+	echo json_encode($result);
+	exit();
+}
+if (isset($_POST["ufirstname"])) {
+	$m = new Manage();
+	$id = $_POST["uuserid"];
+	$fname = $_POST["ufirstname"];
+	$lname = $_POST["ulastname"];
+	$uname = $_POST["uusername"];
+	$utype = $_POST["uusertype"];
+	$upass = $_POST["upassword1"];
+	$ubra = $_POST["uuserbranch"];
+	$uhpass = password_hash($upass,PASSWORD_BCRYPT,["cost"=>8]);
+	$result = $m->update_record("user",["id"=>$id],["firstname"=>$fname , "lastname"=>$lname, "username"=>$uname, "usertype"=>$utype, "password"=>$uhpass, "remarks"=>$ubra]);
 	echo $result;
 }
 //$obj = new Manage();

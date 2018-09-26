@@ -83,6 +83,17 @@ class Manage
 					return "DEPARTMENTDELETED";
 				}
 			}
+		} else if($table =="user") {
+			if ($_SESSION["id"] == $id){
+				return "YOUARECURRENTYUSINGTHISACCOUNT";
+			} else {
+				$pre_stmt = $this->con->prepare("DELETE FROM ".$table." WHERE ".$pk." = ?");
+				$pre_stmt->bind_param("i",$id);
+				$result = $pre_stmt->execute() or die($this->con->error);
+					if ($result) {
+						return "DELETED";
+				}	
+			}
 		}else{ 
 			$pre_stmt = $this->con->prepare("DELETE FROM ".$table." WHERE ".$pk." = ?");
 			$pre_stmt->bind_param("i",$id);
@@ -118,9 +129,10 @@ class Manage
 			return "UPDATED";
 		}
 	}
-}
-//$obj = new Manage();
-//echo "<pre>";
-//echo $obj->deleteRecord("department","did",17);
+}/*
+$obj = new Manage();
+echo "<pre>";
+echo $obj->update_record("user",["id"=>1],["firstname"=>"Anzils", "lastname"=>"Subedis", "usertype"=>"Administrator"]);
 //print_r($obj->getSingleRecord("department","did",14));
+ */
 ?>

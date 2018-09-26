@@ -740,4 +740,106 @@ $(document).ready(function(){
             $('#usubmitdev').attr('disabled', true);
         }         
     });
-});    
+    manageUsers(1);
+    function manageUsers(pn){
+        $.ajax({
+            url : DOMAIN+"/includes/process.php",
+            method : "POST",
+            data : {manageUsers:1,pageno:pn},
+            success : function(data){
+                $("#get_users").html(data);
+                
+            }
+        })
+    }
+    $("body").delegate(".page-link","click",function(){
+        var pn = $(this).attr("pn");
+        manageUsers(pn);
+    })
+    $("body").delegate(".delete_user","click",function(){
+        var tid = $(this).attr("tid");        
+        if (confirm("Do You Surely Want To Delete This User?")) {
+            $.ajax({
+                url : DOMAIN+"/includes/process.php",
+                method : "POST",
+                dataType : "json",
+                data : {currentUser:1,id:tid},
+                success : function(data){
+                    console.log(data);                    
+                    var currentusername = data["username"];
+                    $.ajax({
+                        url : DOMAIN+"/includes/process.php",
+                        method : "POST",
+                        data : { deleteUser: 1 ,id: tid },
+                        success : function(data){
+                            if($.trim(data) == "DELETED"){
+                                manageUsers(1);
+                              //  alert("Department Deleted Successfully");
+                                var beforepromsg = "A old <b>User</b> ( ";                        
+                                var afterpromsg = " ) was deleted successfully";
+                                var promsg = beforepromsg+currentusername+afterpromsg;
+                                $.ajax({
+                                    url : DOMAIN+"/includes/processmessage.php",
+                                    type: "post",
+                                    data: { promsg: promsg },
+                                    success: function(data){
+                                        //alert(data);/*do some thing in second function*/
+                                        $.ajax({
+                                        url : DOMAIN+"/includes/messagesession.php",
+                                        method : "GET",
+                                        data : data,
+                                            success: function(data){
+                                                if ($.trim(data) === "Administrator"){
+                                                    //alert("New Department added successfully");
+                                                    window.location.href = encodeURI(DOMAIN+"/manage_users.php?msg=A User Was Deleted Successfully");                                            
+                                                }
+                                            }
+                                        });
+                                    }
+                                });                        
+                            }else if($.trim(data) == "YOUARECURRENTYUSINGTHISACCOUNT"){
+                                window.location.href = encodeURI(DOMAIN+"/manage_users.php?msg=Sorry Cannot Delete Current Active User");
+                            } else {
+                                alert(data);
+                            }                              
+                        }
+                    });                
+                }
+            });          
+        }else{
+            window.location.href = encodeURI(DOMAIN+"/manage_users.php?msg=Nothing Was Changed");
+        }        
+    });
+    $("body").delegate(".edit_user","click",function(){
+        var eid = $(this).attr("eid");
+        window.ceid = eid;    
+        $.ajax({
+            url : DOMAIN+"/includes/process.php",
+            method : "POST",
+            dataType : "json",
+            data : {updateUser:1,id:eid},
+            success : function(data){
+                console.log(data);
+                $("#uuserid").val(data["id"])
+                $("#ufirstname").val(data["firstname"]);
+                $("#ulastname").val(data["lastname"]);
+                $("#uusername").val(data["username"]);
+                $("#uusertype").val(data["usertype"]);
+                $("#uuserbranch").val(data["remarks"])                                
+            }
+        });           
+    });
+    $("#update_user_form").on("submit",function(){       
+        $.ajax({
+            url : DOMAIN+"/includes/process.php",
+            method : "POST",
+            data : $("#update_user_form").serialize(),
+            success : function(data){
+                if ($.trim(data) === "UPDATED"){
+                    console.log(data);
+                    alert(data);
+                }
+            }
+        });
+    });
+});         

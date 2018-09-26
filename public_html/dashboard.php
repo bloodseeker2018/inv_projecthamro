@@ -52,7 +52,7 @@ if (!isset($_SESSION["id"])){
 					  	<h4 class="card-title">Profile Info</h4>
 					  	<br/>
 					  	<p class="card-text"><i class="fa fa-id-badge">&nbsp;</i><?php echo $_SESSION["firstname"]?>&nbsp;<?php echo $_SESSION["lastname"]?></p>
-					  	<p class="card-text"><i class="fa fa-building">&nbsp;</i>Head Office</p>
+					  	<p class="card-text"><i class="fa fa-building">&nbsp;</i><?php echo $_SESSION["remarks"] ?></p>
 					  	<p class="card-text"><i class="fa fa-user-cog">&nbsp;</i><?php echo $_SESSION["usertype"] ?></p>
 					  	<p class="card-text"><i class="fa fa-clock">&nbsp;</i>Last login : <?php echo $_SESSION["last_login"] ?> </p>
 					  	<br/>
@@ -77,7 +77,7 @@ if (!isset($_SESSION["id"])){
 									<h5 class="card-title">Users</h5>
 										<p class="card-text">Here you can add or manage Office Users</p>
 										<a href="register.php" class="btn btn-primary mx-auto dashboardbtn"><i class="fa fa-plus">&nbsp;</i>Add</a>
-										<a href="#" class="btn btn-primary mx-auto dashboardbtn"><i class="fa fa-edit">&nbsp;</i>Manage</a>
+										<a href="manage_users.php" class="btn btn-primary mx-auto dashboardbtn"><i class="fa fa-edit">&nbsp;</i>Manage</a>
 								</div>
 							</div>
 						</div>

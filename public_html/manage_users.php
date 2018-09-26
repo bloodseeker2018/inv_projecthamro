@@ -46,36 +46,23 @@ if (!isset($_SESSION["id"])){
 			    <thead>
 			    	<tr>
 			        	<th>S.No.</th>
-			        	<th>Device</th>
-			        	<th>Brand</th>
-			        	<th>Model No.</th>
-			        	<th>Branch</th>
-			      		<th>Department</th>
-			      		<th>Added Date</th>
-			      		<th>Remarks</th>
-			      		<th>Status</th>
+			        	<th>User Id</th>
+			        	<th>First Name</th>
+			        	<th>Last Name</th>
+			      		<th>User Type</th>
+			      		<th>Branch</th>
+			      		<th>Registered Date</th>
+			      		<th>Last login</th>
 			      		<th>Action</th>
 			      	</tr>
 			    </thead>
-			    <tbody id="get_device">
-			      <!--	<tr>
-			        	<td>1</td>
-			        	<td>It Department</td>
-			        	<td>Root</td>
-			        	<td>
-			        		<a href="#" class="btn btn-success btn-sm">Active</a>
-			        	</td>
-			        	<td>
-			        		<a href="#" class="btn btn-danger btn-sm">Delete</a>
-			        		<a href="#" class="btn btn-info btn-sm">Edit</a>
-			        	</td>
-			      	</tr>	-->			      
+			    <tbody id="get_users">			      			      
 			    </tbody>
-			</table>
+			</table><!--
 			<form action="devicereports.php" method="post">			
 				<button type="submit" value="Export to Excel" id="export_excel" name="export_excel" class="btn btn-primary dashboardbtn"><i class="fa fa-file-export">&nbsp;</i>Export to Excel</button>
-			</form>			
+			</form>		-->	
 		</div>
-		<?php include_once("./templates/update_device.php"); ?>		
+	<?php include_once("./templates/update_user.php"); ?>
 	</body>
 </html>	

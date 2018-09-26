@@ -214,6 +214,22 @@ $(document).ready(function(){
                 }    
             }
         }    
+    });
+    $("#userbranch").focusout(function () {
+        var sUserbranch = $('#userbranch').val();
+        if ($.trim(sUserbranch).length == 0) {
+            $(this).css("border-color", "#cd2d00");
+            $('#submit').attr('disabled', true);
+            $("#error_userbranch").text("Enter your Branch Name");            
+        } else if ($(this).val().length < 3 ) {
+                 $(this).css("border-color", "#cd2d00");
+                 $('#submit').attr('disabled', true);
+                 $("#error_userbranch").text("Too short Branch Name");
+        } else {            
+            $(this).css("border-color", "#2eb82e");
+            $("#error_userbranch").text("");
+            $('#submit').attr('disabled', false);    
+        }
     }); 
     $("#register_form").on("submit",function () {
         var sFirstname = $('#firstname').val();
@@ -221,6 +237,7 @@ $(document).ready(function(){
         var sUsername = $('#username').val();
         var sPassword = $('#password1').val();
         var sPassword2 = $("#password2").val();
+        var sUserbranch = $('#userbranch').val();
         if ($("#firstname").val() == '') {
             $("#firstname").css("border-color", "#cd2d00");
             $('#submit').attr('disabled', true); 
@@ -240,6 +257,11 @@ $(document).ready(function(){
             $("#password1").css("border-color", "#cd2d00");
             $('#submit').attr('disabled', true);
             $("#error_password1").text("Enter a Password");            
+        }
+        if ($("#userbranch").val() == '') {
+            $("#userbranch").css("border-color", "#cd2d00");
+            $('#submit').attr('disabled', true);
+            $("#error_userbranch").text("Enter a Branch");            
         }
         if (!validateUsertype()){
                 $("#usertype").css("border-color", "#cd2d00");
@@ -264,79 +286,89 @@ $(document).ready(function(){
                                     $('#submit').attr('disabled', false); 
                                     if (validateLastname(sLastname)) {
                                         $('#submit').attr('disabled', false);
-                                        if (!($.trim(sUsername).length == 0)) {
+                                        if (!($.trim(sUserbranch).length == 0)){
                                             $('#submit').attr('disabled', false);
-                                            if (!($.trim(sUsername).length < 7)) {
+                                            if (!($.trim(sUserbranch).length < 3)){
                                                 $('#submit').attr('disabled', false);
-                                                if (validateUsername(sUsername)) {
+                                                if (!($.trim(sUsername).length == 0)) {
                                                     $('#submit').attr('disabled', false);
-                                                    if (validateUsertype()) {
+                                                    if (!($.trim(sUsername).length < 7)) {
                                                         $('#submit').attr('disabled', false);
-                                                        if (!($.trim(sPassword).length == 0)) {
+                                                        if (validateUsername(sUsername)) {
                                                             $('#submit').attr('disabled', false);
-                                                            if (!($.trim(sPassword).length < 9)) {
+                                                            if (validateUsertype()) {
                                                                 $('#submit').attr('disabled', false);
-                                                                if (validatePassword(sPassword)) {
+                                                                if (!($.trim(sPassword).length == 0)) {
                                                                     $('#submit').attr('disabled', false);
-                                                                    if (!($.trim(sPassword2).length == 0)) {
+                                                                    if (!($.trim(sPassword).length < 9)) {
                                                                         $('#submit').attr('disabled', false);
-                                                                        if (!($("#password2").val() !== $("#password1").val())) {
-                                                                            $('#submit').attr('disabled', false);                                                                                
-                                                                            if (!($('#submit').is('disabled', true))){ 
-                                                                                $(".overlay").show();
-                                                                                $.ajax({
-                                                                                    url : DOMAIN+"/includes/process.php",
-                                                                                    method : "POST",
-                                                                                    data : $("#register_form").serialize(),
-                                                                                    success : function(data){
-                                                                                        if ($.trim(data) === "USEREXISTS"){
-                                                                                            $(".overlay").hide();
-                                                                                            $('#submit').attr('disabled', true);
-                                                                                            $("#username").val('');
-                                                                                            $("#username").css("border-color", "#cd2d00");
-                                                                                            $("#error_username").text("Enter your New User Id");
-                                                                                            alert("Sorry the User Id is already taken");                                
-                                                                                        }else if($.trim(data) === "SOMEERROR"){
-                                                                                            $(".overlay").hide();                                
-                                                                                            alert("Something went wrong");                               
-                                                                                        }else{
-                                                                                            $(".overlay").hide();
-                                                                                            var beforepromsg = "A new <b>User</b> ( ";
-                                                                                            var middlepromsg1 = $("#firstname").val();
-                                                                                            var middlepromsg1_2 = " ";
-                                                                                            var middlepromsg2 = $("#lastname").val();
-                                                                                            var afterpromsg = " ) added successfully";
-                                                                                            var promsg = beforepromsg+middlepromsg1+middlepromsg1_2+middlepromsg2+afterpromsg;
-                                                                                            $.ajax({
-                                                                                                url : DOMAIN+"/includes/processmessage.php",
-                                                                                                type: "post",
-                                                                                                data: { promsg: promsg },
-                                                                                                success: function(data){
-                                                                                                    //alert(data);/*do some thing in second function*/
+                                                                        if (validatePassword(sPassword)) {
+                                                                            $('#submit').attr('disabled', false);
+                                                                            if (!($.trim(sPassword2).length == 0)) {
+                                                                                $('#submit').attr('disabled', false);
+                                                                                if (!($("#password2").val() !== $("#password1").val())) {
+                                                                                    $('#submit').attr('disabled', false);                                                                                
+                                                                                    if (!($('#submit').is('disabled', true))){ 
+                                                                                        $(".overlay").show();
+                                                                                        $.ajax({
+                                                                                            url : DOMAIN+"/includes/process.php",
+                                                                                            method : "POST",
+                                                                                            data : $("#register_form").serialize(),
+                                                                                            success : function(data){
+                                                                                                if ($.trim(data) === "USEREXISTS"){
+                                                                                                    $(".overlay").hide();
+                                                                                                    $('#submit').attr('disabled', true);
+                                                                                                    $("#username").val('');
+                                                                                                    $("#username").css("border-color", "#cd2d00");
+                                                                                                    $("#error_username").text("Enter your New User Id");
+                                                                                                    alert("Sorry the User Id is already taken");                                
+                                                                                                }else if($.trim(data) === "SOMEERROR"){
+                                                                                                    $(".overlay").hide();                                
+                                                                                                    alert("Something went wrong");                               
+                                                                                                }else{
+                                                                                                    $(".overlay").hide();
+                                                                                                    var beforepromsg = "A new <b>User</b> ( ";
+                                                                                                    var middlepromsg1 = $("#firstname").val();
+                                                                                                    var middlepromsg1_2 = " ";
+                                                                                                    var middlepromsg2 = $("#lastname").val();
+                                                                                                    var afterpromsg = " ) added successfully";
+                                                                                                    var promsg = beforepromsg+middlepromsg1+middlepromsg1_2+middlepromsg2+afterpromsg;
                                                                                                     $.ajax({
-                                                                                                    url : DOMAIN+"/includes/messagesession.php",
-                                                                                                    method : "GET",
-                                                                                                    data : data,
+                                                                                                        url : DOMAIN+"/includes/processmessage.php",
+                                                                                                        type: "post",
+                                                                                                        data: { promsg: promsg },
                                                                                                         success: function(data){
-                                                                                                            if ($.trim(data) === "Administrator"){
-                                                                                                                //alert("You have successfully Signup");                                
-                                                                                                                window.location.href = encodeURI(DOMAIN+"/dashboard.php?msg=A New User Is Registered Now That User Can Login");                                                                                                                
-                                                                                                            } else {
-                                                                                                                //alert("You have successfully Signup");                                
-                                                                                                                window.location.href = encodeURI(DOMAIN+"/client.php?msg=A New User Is Registered Now That User Can Login"); 
-                                                                                                            }
+                                                                                                            //alert(data);/*do some thing in second function*/
+                                                                                                            $.ajax({
+                                                                                                            url : DOMAIN+"/includes/messagesession.php",
+                                                                                                            method : "GET",
+                                                                                                            data : data,
+                                                                                                                success: function(data){
+                                                                                                                    if ($.trim(data) === "Administrator"){
+                                                                                                                        //alert("You have successfully Signup");                                
+                                                                                                                        window.location.href = encodeURI(DOMAIN+"/dashboard.php?msg=A New User Is Registered Now That User Can Login");                                                                                                                
+                                                                                                                    } else {
+                                                                                                                        //alert("You have successfully Signup");                                
+                                                                                                                        window.location.href = encodeURI(DOMAIN+"/client.php?msg=A New User Is Registered Now That User Can Login"); 
+                                                                                                                    }
+                                                                                                                }
+                                                                                                            })
                                                                                                         }
-                                                                                                    })
+                                                                                                    });                                                                                            
                                                                                                 }
-                                                                                            });                                                                                            
-                                                                                        }
+                                                                                            }
+                                                                                        });
                                                                                     }
-                                                                                });
+                                                                                } else {
+                                                                                    $('#submit').attr('disabled', true);
+                                                                                }
+                                                                            } else {
+                                                                                $('#submit').attr('disabled', true);
                                                                             }
-                                                                        } else {
+                                                                        }else {
                                                                             $('#submit').attr('disabled', true);
                                                                         }
-                                                                    } else {
+                                                                    }else {
                                                                         $('#submit').attr('disabled', true);
                                                                     }
                                                                 }else {
@@ -354,11 +386,11 @@ $(document).ready(function(){
                                                 }else {
                                                     $('#submit').attr('disabled', true);
                                                 }
-                                            }else {
-                                                $('#submit').attr('disabled', true);
+                                            } else {
+                                                $('#submit').attr('disabled', true); 
                                             }
-                                        }else {
-                                            $('#submit').attr('disabled', true);
+                                        } else {
+                                                $('#submit').attr('disabled', true); 
                                         }
                                     }else {
                                         $('#submit').attr('disabled', true);

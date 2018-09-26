@@ -1,10 +1,13 @@
 
-body{	/*
+body{	
 	background: linear-gradient(rgba(93,77,61,0.50), rgba(0,128,0,0.75), rgba(93,77,61,1));	
-    padding: 50px;  */
+    padding: 50px;  
+}
+.managefield{   
+    background: white!important;  
 }   
 .jumbotron{
-	background-color: white;
+	background-color: #eaeffa;
 }
 .navbar{
 	color:white;

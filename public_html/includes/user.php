@@ -19,7 +19,7 @@ class User
 			return 0;
 		}
 	}
-	public function createUserAccount($username,$firstname,$lastname,$password1,$usertype){
+	public function createUserAccount($username,$firstname,$lastname,$password1,$usertype,$remarks){
 		if($this->usernameExists($username)){
 			return "USEREXISTS";
 		}else{
@@ -28,7 +28,6 @@ class User
 			$timezone  = 5.75;
 			date_default_timezone_set('Asia/Karachi');
 			$sudate = gmdate("Y/m/j H:i:s", time() + 3600*($timezone+date("I")));
-			$remarks ="";
 			$pre_stmt = $this->con->prepare("INSERT INTO `user`(`username`,`firstname`, `lastname`, `password`, `usertype`, `register_date`, `last_login`, `remarks`) VALUES (?,?,?,?,?,?,?,?)");
 			$pre_stmt->bind_param("ssssssss",$username,$firstname,$lastname,$pass_hash,$usertype,$sudate,$date,$remarks);
 			$result = $pre_stmt->execute() or die($this->con->error);
@@ -40,7 +39,7 @@ class User
 		}		
 	}
 	public function userLogin($username,$password1){
-		$pre_stmt = $this->con->prepare("SELECT id,username,firstname,lastname,password,usertype,last_login FROM user WHERE username = ?");
+		$pre_stmt = $this->con->prepare("SELECT id,username,firstname,lastname,password,usertype,last_login,remarks FROM user WHERE username = ?");
 		$pre_stmt->bind_param("s",$username);
 		$pre_stmt->execute() or die($this->con->error);
 		$result = $pre_stmt->get_result();
@@ -59,6 +58,7 @@ class User
 				$_SESSION["usertype"] = $row["usertype"];
 				$_SESSION["last_login"] = $row["last_login"];
 				$_SESSION["userid_username"] = $row["username"];
+				$_SESSION["remarks"] = $row["remarks"];	
 				$pre_stmt = $this->con->prepare("UPDATE user  SET last_login = ? WHERE username = ?");
 				$pre_stmt->bind_param("ss",$last_login,$username);
 				$result = $pre_stmt->execute() or die($this->con->error);
