@@ -29,7 +29,7 @@ if (!isset($_SESSION["id"])){
 		<?php
 		include_once("./templates/header.php");
 		?>
-		<br/><br/>
+		
 		<div class="container">
 			<?php
 				if (isset($_GET["msg"]) AND !empty($_GET["msg"])) {

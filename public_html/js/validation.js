@@ -338,20 +338,19 @@ $(document).ready(function(){
                                                                                                         type: "post",
                                                                                                         data: { promsg: promsg },
                                                                                                         success: function(data){
-                                                                                                            //alert(data);/*do some thing in second function*/
                                                                                                             $.ajax({
-                                                                                                            url : DOMAIN+"/includes/messagesession.php",
-                                                                                                            method : "GET",
-                                                                                                            data : data,
-                                                                                                                success: function(data){
-                                                                                                                    if ($.trim(data) === "Administrator"){
-                                                                                                                        //alert("You have successfully Signup");                                
-                                                                                                                        window.location.href = encodeURI(DOMAIN+"/dashboard.php?msg=A New User Is Registered Now That User Can Login");                                                                                                                
-                                                                                                                    } else {
-                                                                                                                        //alert("You have successfully Signup");                                
-                                                                                                                        window.location.href = encodeURI(DOMAIN+"/client.php?msg=A New User Is Registered Now That User Can Login"); 
+                                                                                                                url : DOMAIN+"/includes/messagesession.php",
+                                                                                                                method : "GET",
+                                                                                                                data : data,
+                                                                                                                    success: function(data){
+                                                                                                                        if ($.trim(data) === "Administrator"){
+                                                                                                                            //alert("You have successfully Signup");                                
+                                                                                                                            window.location.href = encodeURI(DOMAIN+"/dashboard.php?msg=A New User Is Registered Now That User Can Login");                                                                                                                
+                                                                                                                        } else {
+                                                                                                                            //alert("You have successfully Signup");                                
+                                                                                                                            window.location.href = encodeURI(DOMAIN+"/client.php?msg=A New User Is Registered Now That User Can Login"); 
+                                                                                                                        }
                                                                                                                     }
-                                                                                                                }
                                                                                                             })
                                                                                                         }
                                                                                                     });                                                                                            

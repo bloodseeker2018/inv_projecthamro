@@ -57,19 +57,7 @@ if (!isset($_SESSION["id"])){
 			      		<th>Action</th>
 			      	</tr>
 			    </thead>
-			    <tbody id="get_device">
-			      <!--	<tr>
-			        	<td>1</td>
-			        	<td>It Department</td>
-			        	<td>Root</td>
-			        	<td>
-			        		<a href="#" class="btn btn-success btn-sm">Active</a>
-			        	</td>
-			        	<td>
-			        		<a href="#" class="btn btn-danger btn-sm">Delete</a>
-			        		<a href="#" class="btn btn-info btn-sm">Edit</a>
-			        	</td>
-			      	</tr>	-->			      
+			    <tbody id="get_device">			      			      
 			    </tbody>
 			</table>
 			<form action="devicereports.php" method="post">			

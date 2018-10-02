@@ -4,7 +4,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Edit Users</h5>
-        <button type="button" name="udevice_udismiss1" id="udevice_udismiss1" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" name="uuser_udismiss1" id="uuser_udismiss1" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -50,14 +50,14 @@
               <span id="error_uusername" class="text-danger" style="font-size: 12px;"></span>              
             </div>
             <div class="form-group mx-auto">
-              <label for="password1">New Password*</label>
+              <label for="password1">New Password</label>
               <input type="password" class="password1 form-control" id="upassword1" name="upassword1" placeholder="Password">   
               <input type="checkbox" id="showHide"/>
               <label for="showHide" id="showHideLabel"><font class="form-text text-muted" size="2">Show Password</font></label><br/>
               <span id="error_upassword1" class="text-danger" style="font-size: 12px;"></span>           
             </div>
             <div class="form-group mx-auto">
-              <label for="Password2">Re-Enter New Password*</label>
+              <label for="Password2">Re-Enter New Password</label>
               <input type="password" class="form-control" id="upassword2" name="upassword2" placeholder="Re-type your Password">
               <span id="error_upassword2" class="text-danger" style="font-size: 12px;" ></span>              
             </div>
@@ -88,7 +88,9 @@
       </div>
         <div class="modal-footer">
           <button type="submit" value="submit" id="usubmituser" class="btn btn-primary dashboardbtn"><i class="fa fa-save" style="color:white;">&nbsp;</i><font style="color:white;">Update changes</font></button>         
-          <button type="button" name="udevice_udismiss2" id="udevice_udismiss2" class="btn btn-secondary dashboardbtn" data-dismiss="modal"><i class="fa fa-times" style="color:white;">&nbsp;</i><font style="color:white;">Close</font></button>
+          <button type="button" name="uuser_udismiss2" id="uuser_udismiss2" class="btn btn-secondary dashboardbtn" data-dismiss="modal"><i class="fa fa-times" style="color:white;">&nbsp;</i><font style="color:white;">Close</font></button>
+        </div>
+        <div class="card-footer text-muted">Please fill in all the compulsory(*) fields above
         </div>
       </form>      
     </div>
