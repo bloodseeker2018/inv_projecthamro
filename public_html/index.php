@@ -65,7 +65,7 @@ if (isset($_SESSION["id"]) AND isset($_SESSION["usertype"])){
 					    			<button type="submit" value="submit" class="btn btn-primary dashboardbtn" id="submit"><i class="fa fa-unlock">&nbsp;</i>Login</button>
 							</form>
 			    </div>			   
-			    <div class="card-footer"><a href="http://localhost/inv_projecthamro/public_html/register.php#">Register?</a></div>
+			    <div class="card-footer"></div>
 			</div>			
 		</div>
 		</body>

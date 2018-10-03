@@ -302,13 +302,19 @@ if (isset($_POST["upassword1"]) AND isset($_POST["ufirstname"])){
 	$utype = $_POST["uusertype"];
 	$upass = $_POST["upassword1"];
 	$ubra = $_POST["uuserbranch"];
-	if (!(empty($upass))){
-		$uhpass = password_hash($upass,PASSWORD_BCRYPT,["cost"=>8]);
-		$result = $m->update_record("user",["id"=>$id],["firstname"=>$fname , "lastname"=>$lname, "username"=>$uname, "usertype"=>$utype, "password"=>$uhpass, "remarks"=>$ubra]);
+	if (!($id == $_SESSION["id"])){
+		if (!(empty($upass))){
+			$uhpass = password_hash($upass,PASSWORD_BCRYPT,["cost"=>8]);
+			$result = $m->update_record("user",["id"=>$id],["firstname"=>$fname , "lastname"=>$lname, "username"=>$uname, "usertype"=>$utype, "password"=>$uhpass, "remarks"=>$ubra]);
+		} else {
+			$result = $m->update_record("user",["id"=>$id],["firstname"=>$fname , "lastname"=>$lname, "username"=>$uname, "usertype"=>$utype, "remarks"=>$ubra]);
+		}
+		echo $result;
 	} else {
-		$result = $m->update_record("user",["id"=>$id],["firstname"=>$fname , "lastname"=>$lname, "username"=>$uname, "usertype"=>$utype, "remarks"=>$ubra]);
+		$result = "Currenactiveuseraccount";
+		echo $result;
 	}
-	echo $result;
+
 }
 //$obj = new Manage();
 //echo "<pre>";

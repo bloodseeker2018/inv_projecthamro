@@ -120,13 +120,13 @@ if (!isset($_SESSION["id"])){
 			</div>
 		</div>
 							<?php //Branch
-							include_once("./templates/branch.php");
+								include_once("./templates/branch.php");
 							?>
 							<?php //Department
-							include_once("./templates/department.php");
+								include_once("./templates/department.php");
 							?>
 							<?php //Device
-							include_once("./templates/device.php");
+								include_once("./templates/device.php");
 							?>
 	</body>
 </html>	

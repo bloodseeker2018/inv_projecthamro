@@ -1213,8 +1213,6 @@ $(document).ready(function(){
                                                                         success: function(data){
                                                                             if ($.trim(data) === "UPDATED"){
                                                                                 $(".overlay").hide();
-                                                                                console.log(data);
-                                                                                alert(data);
                                                                                 var beforepromsg = "A <b>User</b> ( ";
                                                                                 var middlepromsg = $("#ufirstname").val();
                                                                                 var middlepromsg1_2 = (" ");
@@ -1239,6 +1237,9 @@ $(document).ready(function(){
                                                                                         });
                                                                                     }
                                                                                 });
+                                                                            } else if ($.trim(data) == "Currenactiveuseraccount"){
+                                                                                window.location.href = encodeURI(DOMAIN+"/manage_users.php?msg=Sorry Cannot Edit Current Active User");
+                                                                                uclearuUserfield();
                                                                             } else {
                                                                                 alert(data);
                                                                             }
