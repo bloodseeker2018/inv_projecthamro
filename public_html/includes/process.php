@@ -180,6 +180,12 @@ if (isset($_POST["updateBranch"])) {
 	echo json_encode($result);
 	exit();
 }
+if (isset($_POST["editProfile"])) {
+	$m = new Manage();
+	$result = $m->getSingleRecord("user","id",$_POST["id"]);
+	echo json_encode($result);
+	exit();
+}
 if (isset($_POST["update_branch"])) {
 	$m = new Manage();
 	$id = $_POST["bid"];
@@ -314,7 +320,22 @@ if (isset($_POST["upassword1"]) AND isset($_POST["ufirstname"])){
 		$result = "Currenactiveuseraccount";
 		echo $result;
 	}
-
+}
+if (isset($_POST["epassword1"]) AND isset($_POST["efirstname"])){
+	$m = new Manage();
+	$id = $_SESSION["id"];
+	$efname = $_POST["efirstname"];
+	$elname = $_POST["elastname"];
+	$euname = $_POST["eusername"];
+	$eupass = $_POST["epassword1"];
+	$eubra = $_POST["euserbranch"];
+	if (!(empty($eupass))){
+		$euhpass = password_hash($eupass,PASSWORD_BCRYPT,["cost"=>8]);
+		$result = $m->update_record("user",["id"=>$id],["firstname"=>$efname , "lastname"=>$elname, "username"=>$euname, "password"=>$euhpass, "remarks"=>$eubra]);
+	} else {
+		$result = $m->update_record("user",["id"=>$id],["firstname"=>$efname , "lastname"=>$elname, "username"=>$euname, "remarks"=>$eubra]);
+	}
+	echo $result;
 }
 //$obj = new Manage();
 //echo "<pre>";

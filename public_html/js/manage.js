@@ -547,7 +547,7 @@ $(document).ready(function(){
             return true;
         }
     }
-    $("#select_dep").focusout(function () {
+    $("#uselect_dep").focusout(function () {
         if (!uvalidateSelectdepartment()){
             $(this).css("border-color", "#cd2d00");
             $('#usubmitdev').attr('disabled', true);
@@ -1104,8 +1104,8 @@ $(document).ready(function(){
         jqueryactionsuUserbranch();
     });
     function uclearuUserfield(){
-        $("#uuserid").val('');
-        $("#uuserid").css("border-color", "");                                                        
+        $("#ufirstname").val('');
+        $("#ufirstname").css("border-color", "");                                                        
         $("#error_ufirstname").text("");
         $("#ulastname").val('');
         $("#ulastname").css("border-color", "");                                                        
@@ -1217,7 +1217,7 @@ $(document).ready(function(){
                                                                                 var middlepromsg = $("#ufirstname").val();
                                                                                 var middlepromsg1_2 = (" ");
                                                                                 var middlepromsg2 = $("#ulastname").val();                            
-                                                                                var afterpromsg = " ) updated Successfully";
+                                                                                var afterpromsg = " ) updated successfully";
                                                                                 var promsg = beforepromsg+middlepromsg+middlepromsg1_2+middlepromsg2+afterpromsg;
                                                                                 $.ajax({
                                                                                     url : DOMAIN+"/includes/processmessage.php",
@@ -1228,12 +1228,12 @@ $(document).ready(function(){
                                                                                             url : DOMAIN+"/includes/messagesession.php",
                                                                                             method : "GET",
                                                                                             data : data,
-                                                                                                success: function(data){
-                                                                                                    if ($.trim(data) === "Administrator"){                                                                            
-                                                                                                        window.location.href = encodeURI(DOMAIN+"/manage_users.php?msg=A User Was Updated Successfully");
-                                                                                                        uclearuUserfield();   
-                                                                                                    }
+                                                                                            success: function(data){
+                                                                                                if ($.trim(data) === "Administrator"){                                                                            
+                                                                                                    window.location.href = encodeURI(DOMAIN+"/manage_users.php?msg=A User Was Updated Successfully");
+                                                                                                    uclearuUserfield();   
                                                                                                 }
+                                                                                            }
                                                                                         });
                                                                                     }
                                                                                 });
@@ -1241,7 +1241,10 @@ $(document).ready(function(){
                                                                                 window.location.href = encodeURI(DOMAIN+"/manage_users.php?msg=Sorry Cannot Edit Current Active User");
                                                                                 uclearuUserfield();
                                                                             } else {
-                                                                                alert(data);
+                                                                                $('#usubmituser').attr('disabled', true);
+                                                                                $("#uusername").val('');
+                                                                                $("#uusername").css("border-color", "#cd2d00");
+                                                                                $("#error_uusername").text("Invalid User Id");
                                                                             }
                                                                         }
                                                                     });

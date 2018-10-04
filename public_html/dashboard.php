@@ -56,7 +56,7 @@ if (!isset($_SESSION["id"])){
 					  	<p class="card-text"><i class="fa fa-user-cog">&nbsp;</i><?php echo $_SESSION["usertype"] ?></p>
 					  	<p class="card-text"><i class="fa fa-clock">&nbsp;</i>Last login : <?php echo $_SESSION["last_login"] ?> </p>
 					  	<br/>
-					    <a href="#" class="btn btn-primary dashboardbtn"><i class="fa fa-edit">&nbsp;</i>Edit Profile</a>
+					    <a href="#" id="edituserprofiles" name="edituserprofiles" data-toggle="modal" data-target="#form_edituserprofile" class="btn btn-primary mx-auto dashboardbtn "><i class="fa fa-edit">&nbsp;</i>Edit Profile</a>
 					  </div>
 					</div>
 				</div>
@@ -127,6 +127,9 @@ if (!isset($_SESSION["id"])){
 							?>
 							<?php //Device
 								include_once("./templates/device.php");
+							?>
+							<?php 
+								include_once("./templates/editprofile.php");
 							?>
 	</body>
 </html>	

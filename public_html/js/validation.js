@@ -650,8 +650,7 @@ $(document).ready(function(){
                             } else {                            
                                 $("#department_name").css("border-color", "#cd2d00");
                                 $('#submitdep').attr('disabled', true);                    
-                                $("#error_department").text(data);
-                                alert(data);
+                                $("#error_department").text("Invalid Department Name");
                                 $("#department_name").val('');
                             }
                         }
@@ -733,8 +732,7 @@ $(document).ready(function(){
                     } else {
                         $("#branch_name").css("border-color", "#cd2d00");
                         $('#submitbra').attr('disabled', true);                       
-                        $("#error_branch").text(data);
-                        alert(data);
+                        $("#error_branch").text("Invalid Branch Name");
                         $("#branch_name").val('');
                     }
                 },       
@@ -967,8 +965,10 @@ $(document).ready(function(){
                                                             }
                                                         });                                                        
                                                     } else {
-                                                        alert(data);
-                                                        clearDevicefield();
+                                                        $("#device_name").val('')
+                                                        $("#device_name").css("border-color", "#cd2d00");
+                                                        $("#error_devicename").text("Invalid Device Name");
+                                                        $('#submitdev').attr('disabled', true);                   
                                                     }
                                                 }
                                             });
@@ -997,5 +997,465 @@ $(document).ready(function(){
         } else {
             $('#submitdev').attr('disabled', true);
         }        
-    });        
+    });
+    $("#edituserprofiles").click(function() {
+        $.ajax({
+            url : DOMAIN+"/includes/profilesession.php",
+            method : "GET",
+            success: function(data){                
+                var efid = (data);
+                $.ajax({
+                    url : DOMAIN+"/includes/process.php",
+                    method : "POST",
+                    dataType : "json",
+                    data : {editProfile:1,id:efid},
+                    success : function(data){
+                    //    console.log(data);
+                        $("#euserid").val(data["id"])
+                        $("#efirstname").val(data["firstname"]);
+                        $("#elastname").val(data["lastname"]);
+                        $("#eusername").val(data["username"]);
+                        $("#euserbranch").val(data["remarks"]);                                
+                    }
+                });
+            }
+        });
+    });
+    function validateeFirstname(seFirstname) {
+        var filter = /^[a-zA-Z]*$/;
+        if (filter.test(seFirstname)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function jqueryactionseFirstname(){
+        var seFirstname = $('#efirstname').val();
+        if ($.trim(seFirstname).length == 0) {
+            $('#efirstname').css("border-color", "#cd2d00");
+            $('#esubmituser').attr('disabled', true);
+            $("#error_efirstname").text("Enter your First Name");            
+        } else if ($('#efirstname').val().length < 3 ) {
+                 $('#efirstname').css("border-color", "#cd2d00");
+                 $('#esubmituser').attr('disabled', true);
+                 $("#error_efirstname").text("Too short First Name");
+        } else if (validateeFirstname(seFirstname)) {
+            $('#efirstname').css("border-color", "#2eb82e");
+            $("#error_efirstname").text("");
+            $('#esubmituser').attr('disabled', false);
+        } else {
+            $('#efirstname').css("border-color", "#cd2d00");
+            $('#esubmituser').attr('disabled', true);
+            $("#error_efirstname").text("Invalid First Name");    
+        }
+    }
+    $("#efirstname").focusout(function () {
+        jqueryactionseFirstname();
+    });
+    $("#efirstname").keyup(function () {
+        jqueryactionseFirstname();
+    });
+    function validateeLastname(seLastname) {
+        var filter1 = /^[a-zA-Z]*$/;
+        if (filter1.test(seLastname)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function jqueryactioneLastname(){
+        var seLastname = $('#elastname').val();
+        if ($.trim(seLastname).length == 0) {
+            $('#elastname').css("border-color", "#cd2d00");
+            $('#esubmituser').attr('disabled', true);
+            $("#error_elastname").text("Enter your Last Name");           
+        } else if ($('#elastname').val().length < 3 ) {
+                 $('#elastname').css("border-color", "#cd2d00");
+                 $('#esubmituser').attr('disabled', true);
+                 $("#error_elastname").text("Too short Last Name");                
+        } else if (validateeLastname(seLastname)) {
+            $('#elastname').css("border-color", "#2eb82e");
+            $("#error_elastname").text("");
+            $('#esubmituser').attr('disabled', false);
+        } else {
+            $('#elastname').css("border-color", "#cd2d00");
+            $('#esubmituser').attr('disabled', true);
+            $("#error_elastname").text("Invalid Last Name");            
+        }
+    }
+    $("#elastname").focusout(function () {
+        jqueryactioneLastname();
+    });
+    $("#elastname").keyup(function (){
+        jqueryactioneLastname();
+    });
+    function validateeUsername(seUsername) {
+        var filter2 = /^(?=.*[a-z])[a-z0-9]+(([\.-]?)[a-z0-9]+)*(([\._]?)[a-z0-9]+)*(([\_-]?)[a-z0-9]+)*$/;
+        if (filter2.test(seUsername)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function jqueryactionseUsername(){
+        var seUsername = $('#eusername').val();
+        if ($.trim(seUsername).length == 0) {
+            $('#eusername').css("border-color", "#cd2d00");
+            $('#esubmituser').attr('disabled', true);
+            $("#error_eusername").text("Enter your User Id");           
+        } else if ($('#eusername').val().length < 7 ) {
+                 $('#eusername').css("border-color", "#cd2d00");
+                 $('#esubmituser').attr('disabled', true);
+                 $("#error_eusername").text("Too short User Id");              
+        } else if (validateeUsername(seUsername)) {
+            $('#eusername').css("border-color", "#2eb82e");
+            $('#esubmituser').attr('disabled', false);
+            $("#error_eusername").text("");
+        } else {
+            $('#eusername').css("border-color", "#cd2d00");
+            $('#esubmituser').attr('disabled', true);
+            $("#error_eusername").text("Invalid User Id");            
+        }
+    }
+    $("#eusername").focusout(function () {
+        jqueryactionseUsername  ();
+    });
+    $("#eusername").keyup(function () {
+        jqueryactionseUsername();
+    });
+
+function validateePassword(sePassword) {
+        var filter3 = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+        if (filter3.test(sePassword)) {
+            return true;
+        } else {
+            return false;
+        }
+    }    
+    function jqueryactionsePassword1(){
+        var sePassword = $('#epassword1').val();
+        if ($.trim(sePassword).length !== 0) {                   
+            if ($('#epassword1').val().length < 9 ) {
+                $('#epassword1').css("border-color", "#cd2d00");
+                $('#esubmituser').attr('disabled', true);
+                $("#error_epassword1").text("Too short Password");                
+            } else if (validateePassword(sePassword)) {
+                $('#epassword1').css("border-color", "#2eb82e");
+                $('#esubmituser').attr('disabled', false);
+                $("#error_epassword1").text("");
+            } else {
+                $('#epassword1').css("border-color", "#cd2d00");
+                $('#esubmituser').attr('disabled', true);
+                $("#error_epassword1").text("Invalid Password");           
+            }
+        } else {
+            $('#epassword1').css("border-color", "");
+            $("#error_epassword1").text("");
+            $('#epassword2').css("border-color", "");            
+            $("#error_epassword2").text("");
+            $('#esubmituser').attr('disabled', false);
+            $("#epassword2").val('');
+        }
+    }
+    $("#epassword1").focusout(function () {
+        jqueryactionsePassword1();
+    });
+    $("#epassword1").keyup(function () {
+        jqueryactionsePassword1();
+    });
+    function jqueryactionsePassword2(){
+        var sePassword = $('#epassword1').val();
+        var sePassword2 = $("#epassword2").val();
+        if ($.trim(sePassword2).length == 0) {
+            if (!($.trim(sePassword).length == 0)) {
+                if (!($.trim(sePassword).length < 9 )) {
+                    if (validateePassword(sePassword)){
+                        if ($("#epassword2").val() !== $("#epassword1").val()) {
+                            $("#epassword2").css("border-color", "#cd2d00");
+                            $('#esubmituser').attr('disabled', true);
+                            $("#error_epassword2").text("Please Re-Enter your Password");                
+                        }
+                    } else {
+                            $("#epassword1").css("border-color", "#cd2d00");
+                            $('#esubmituser').attr('disabled', true);
+                            $("#error_epassword1").text("Firt enter the valid Password");
+                            $("#epassword2").val('');                    
+                    }
+                } else {
+                    $("#epassword1").css("border-color", "#cd2d00");
+                    $('#esubmituser').attr('disabled', true);
+                    $("#error_epassword1").text("This is too short Password");
+                    $("#epassword2").val('');                
+                }
+            } else {
+                $("#epassword1").css("border-color", "#cd2d00");
+                $('#esubmituser').attr('disabled', true);
+                $("#error_epassword1").text("First Enter a Password");
+                $("#epassword2").val('');           
+            }
+        } else if (!($.trim(sePassword2).length == 0)) { 
+            if ($("#epassword2").val() == $("#epassword1").val()) {
+                if (!($.trim(sePassword).length == 0)) {
+                    if (!($.trim(sePassword).length < 9 )) {
+                        if (validateePassword(sePassword)){
+                                $("#epassword2").css("border-color", "#2eb82e");
+                                $('#esubmituser').attr('disabled', false);
+                                $("#error_epassword2").text("");
+                        } else {
+                            $("#epassword1").css("border-color", "#cd2d00");
+                            $('#esubmituser').attr('disabled', true);
+                            $("#error_epassword1").text("Firt enter the valid Password");
+                            $("#epassword2").val('');                    
+                        }
+                    } else {
+                        $("#epassword1").css("border-color", "#cd2d00");
+                        $('#esubmituser').attr('disabled', true);
+                        $("#error_epassword1").text("This is too short Password");
+                        $("#epassword2").val('');                
+                    }
+                } else {
+                    $("#epassword1").css("border-color", "#cd2d00");
+                    $('#esubmituser').attr('disabled', true);
+                    $("#error_epassword1").text("First Enter a Password");
+                    $("#epassword2").val('');           
+                }
+            } else if ($("#epassword2").val() !== $("#epassword1").val()) {
+                if (!($.trim(sePassword).length == 0)) {
+                    if (!($.trim(sePassword).length < 9 )) {
+                        if (validateePassword(sePassword)){
+                            $("#epassword2").css("border-color", "#cd2d00");
+                            $('#esubmituser').attr('disabled', true);
+                            $("#error_epassword2").text("Passwords Do not match");    
+                        } else {
+                            $("#epassword1").css("border-color", "#cd2d00");
+                            $('#esubmituser').attr('disabled', true);
+                            $("#error_epassword1").text("Firt enter the valid Password");
+                            $("#epassword2").val('');                    
+                        }
+                    } else {
+                        $("#epassword1").css("border-color", "#cd2d00");
+                        $('#esubmituser').attr('disabled', true);
+                        $("#error_epassword1").text("This is too short Password");
+                        $("#epassword2").val('');                
+                    }
+                } else {
+                    $("#epassword1").css("border-color", "#cd2d00");
+                    $('#esubmituser').attr('disabled', true);
+                    $("#error_epassword1").text("First Enter a Password");
+                    $("#epassword2").val('');           
+                }    
+            }
+        }
+    }
+    $("#epassword2").focusout(function () {
+        jqueryactionsePassword2();
+    });
+    $("#epassword2").keyup(function () {
+        jqueryactionsePassword2();
+    });
+    function jqueryactionseUserbranch(){
+        var seUserbranch = $('#euserbranch').val();
+        if ($.trim(seUserbranch).length == 0) {
+            $('#euserbranch').css("border-color", "#cd2d00");
+            $('#esubmituser').attr('disabled', true);
+            $("#error_euserbranch").text("Enter your Branch Name");            
+        } else if ($('#euserbranch').val().length < 3 ) {
+                 $('#euserbranch').css("border-color", "#cd2d00");
+                 $('#esubmituser').attr('disabled', true);
+                 $("#error_euserbranch").text("Too short Branch Name");
+        } else {            
+            $('#euserbranch').css("border-color", "#2eb82e");
+            $("#error_euserbranch").text("");
+            $('#esubmituser').attr('disabled', false);    
+        }
+    }
+    $("#euserbranch").focusout(function () {
+        jqueryactionseUserbranch();
+    });
+    $("#euserbranch").keyup(function () {
+        jqueryactionseUserbranch();
+    });
+    function ucleareUserfield(){
+        $("#efirstname").val('');
+        $("#efirstname").css("border-color", "");                                                        
+        $("#error_efirstname").text("");
+        $("#elastname").val('');
+        $("#elastname").css("border-color", "");                                                        
+        $("#error_elastname").text("");
+        $("#eusername").val('');
+        $("#eusername").css("border-color", "");                                                        
+        $("#error_eusername").text("");
+        $("#epassword1").val('');
+        $("#epassword1").css("border-color", "");                                                        
+        $("#error_epassword1").text("");
+        $("#epassword2").val('');
+        $("#epassword2").css("border-color", "");                                                        
+        $("#error_epassword2").text("");
+        $("#euserbranch").val('');
+        $("#euserbranch").css("border-color", "");                                                        
+        $("#error_euserbranch").text("");
+    }
+    function userepDismissAction(){
+        ucleareUserfield();
+        $('#esubmituser').attr('disabled', false);
+    }
+    $("#euser_edismiss1").click(function() {
+        userepDismissAction();  
+    });
+    $("#euser_edismiss2").click(function() {
+        userepDismissAction();
+    });
+    $("#edit_profile_form").on("submit",function(){
+        var seFirstname = $('#efirstname').val();
+        var seLastname = $('#elastname').val();
+        var seUsername = $('#eusername').val();
+        var sePassword = $('#epassword1').val();
+        var sePassword2 = $("#epassword2").val();
+        var seUserbranch = $('#euserbranch').val();
+        if ($("#efirstname").val() == '') {
+            $("#efirstname").css("border-color", "#cd2d00");
+            $('#esubmituser').attr('disabled', true); 
+            $("#error_efirstname").text("Enter your First Name");            
+        }
+        if ($("#elastname").val() == '') {
+            $("#elastname").css("border-color", "#cd2d00");
+            $('#esubmituser').attr('disabled', true);
+            $("#error_elastname").text("Enter your Last Name");           
+        }
+        if ($("#eusername").val() == '') {
+            $("#eusername").css("border-color", "#cd2d00");
+            $('#esubmituser').attr('disabled', true);
+            $("#error_eusername").text("Enter your User Id");           
+        }
+        if ($("#euserbranch").val() == '') {
+            $("#euserbranch").css("border-color", "#cd2d00");
+            $('#esubmituser').attr('disabled', true);
+            $("#error_euserbranch").text("Enter a Branch");            
+        }        
+        if ($("#epassword1").val() !== ''){
+            if(validateePassword(sePassword)){
+                if ($("#epassword2").val() == '') {
+                    $("#epassword2").css("border-color", "#cd2d00");
+                    $('#esubmituser').attr('disabled', true);
+                    $("#error_upassword2").text("Confirm your Password");
+                }
+            } else {
+                $("#epassword1").css("border-color", "#cd2d00");
+                $("#error_epassword1").text("First Enter Valid Password");
+                $("#epassword2").val('');
+                $("#epassword2").css("border-color", "");
+                $("#error_epassword2").text("");
+                $("#esubmituser").attr('disabled', true);
+            }            
+        } 
+        if (($("#epassword2").val()) == ($("#epassword1").val())) {
+            if (validateeFirstname(seFirstname)) {
+                $('#esubmituser').attr('disabled', false);
+                if (!($.trim(seFirstname).length == 0)) {
+                    $('#esubmituser').attr('disabled', false);
+                    if (!($.trim(seFirstname).length < 3 )) {
+                        $('#esubmituser').attr('disabled', false);
+                        if (!($.trim(seLastname).length == 0)) {
+                            $('#esubmituser').attr('disabled', false);
+                            if (!($.trim(seLastname).length < 3 )) {
+                                $('#esubmituser').attr('disabled', false);
+                                if (validateeLastname(seLastname)) {
+                                    $('#esubmituser').attr('disabled', false);
+                                    if (!($.trim(seUserbranch).length == 0)){
+                                        $('#esubmituser').attr('disabled', false);
+                                        if (!($.trim(seUserbranch).length < 3)){
+                                            $('#esubmituser').attr('disabled', false);
+                                            if (!($.trim(seUsername).length == 0)) {
+                                                $('#esubmituser').attr('disabled', false);
+                                                if (!($.trim(seUsername).length < 7)) {
+                                                    $('#esubmituser').attr('disabled', false);
+                                                    if (validateeUsername(seUsername)) {
+                                                        $('#esubmituser').attr('disabled', false);                                                        
+                                                        if (!($("#epassword2").val() !== $("#epassword1").val())) {
+                                                            $('#esubmituser').attr('disabled', false);
+                                                            if (!($('#submit').is('disabled', true))){  
+                                                                $(".overlay").show();
+                                                                $.ajax({
+                                                                    url : DOMAIN+"/includes/process.php",
+                                                                    method : "POST",
+                                                                    data : $("#edit_profile_form").serialize(),
+                                                                    success: function(data){
+                                                                        if ($.trim(data) === "UPDATED"){
+                                                                            $(".overlay").hide();
+                                                                            var beforepromsg = "The <b>User</b> ( ";
+                                                                            var middlepromsg = $("#efirstname").val();
+                                                                            var middlepromsg1_2 = (" ");
+                                                                            var middlepromsg2 = $("#elastname").val();                            
+                                                                            var afterpromsg = " ) updated his profile successfully";
+                                                                            var promsg = beforepromsg+middlepromsg+middlepromsg1_2+middlepromsg2+afterpromsg;
+                                                                            $.ajax({
+                                                                                url : DOMAIN+"/includes/processmessage.php",
+                                                                                type: "post",
+                                                                                data: { promsg: promsg },
+                                                                                success: function(data){                                                                            
+                                                                                    $.ajax({
+                                                                                        url : DOMAIN+"/includes/messagesession.php",
+                                                                                        method : "GET",
+                                                                                        data : data,
+                                                                                        success: function(data){
+                                                                                            if ($.trim(data) === "Administrator"){                                                                            
+                                                                                                window.location.href = encodeURI(DOMAIN+"/dashboard.php?msg=Your Profile Was Updated Successfully");
+                                                                                                ucleareUserfield();   
+                                                                                            } else if ($.trim(data) == "Normal_User"){
+                                                                                                window.location.href = encodeURI(DOMAIN+"/client.php?msg=Your Profile Was Updated Successfully");
+                                                                                                ucleareUserfield();
+                                                                                            }
+                                                                                        }
+                                                                                    });
+                                                                                }
+                                                                            });
+                                                                        } else {
+                                                                            $('#esubmituser').attr('disabled', true);
+                                                                            $("#eusername").val('');
+                                                                            $("#eusername").css("border-color", "#cd2d00");
+                                                                            $("#error_eusername").text("Invalid User Id");
+                                                                        }
+                                                                    }
+                                                                });
+                                                            } else {
+                                                                $('#esubmituser').attr('disabled', true);
+                                                            }
+                                                        } else {
+                                                            $('#esubmituser').attr('disabled', true);
+                                                        }                                                        
+                                                    } else {
+                                                        $('#esubmituser').attr('disabled', true);
+                                                    }
+                                                } else {
+                                                    $('#esubmituser').attr('disabled', true);
+                                                }
+                                            } else {
+                                                $('#esubmituser').attr('disabled', true);
+                                            }
+                                        } else {
+                                            $('#esubmituser').attr('disabled', true);
+                                        }
+                                    } else {
+                                        $('#esubmituser').attr('disabled', true);
+                                    }
+                                } else {
+                                    $('#esubmituser').attr('disabled', true);
+                                }
+                            } else {
+                                $('#esubmituser').attr('disabled', true);
+                            }
+                        } else {
+                            $('#esubmituser').attr('disabled', true);
+                        }
+                    } else {
+                        $('#esubmituser').attr('disabled', true);
+                    }
+                } else {
+                    $('#esubmituser').attr('disabled', true);
+                }
+            } else {
+                $('#esubmituser').attr('disabled', true);
+            }
+        }        
+    });       
 });
