@@ -67,6 +67,65 @@ class Manage
 
 		return ["pagination"=>$pagination,"limit"=>$limit];
 	}
+	public function managesearchRecordwithpagination($table,$pno,$searchbranchs){		
+		if ($table == "department"){
+			$sql = "SELECT p.did,p.department_name as departments, c.department_name as parent, p.status FROM department p LEFT JOIN department c ON p.parent_dep=c.did ".$a["limit"];
+		} else if ($table == "devices"){
+			$searchid = "device_name";
+			$a = $this->searchpagination($this->con,$table,$pno,$searchbranchs,$searchid,5);
+			$sql = "SELECT p.pid,p.device_name,p.device_brand,p.device_model,b.branch_name,d.department_name,p.added_date,p.remarks,p.d_status FROM devices p,branchs b,department d WHERE p.bid = b.bid AND p.did = d.did AND $searchid LIKE '%$searchbranchs%' ".$a["limit"];
+		} else {
+			$searchid = "branch_name";
+			$a = $this->searchpagination($this->con,$table,$pno,$searchbranchs,$searchid,5);
+			$sql = "SELECT * FROM $table WHERE branch_name LIKE '%$searchbranchs%' ".$a["limit"];			
+		}
+		$result = $this->con->query($sql) or die($this->con->error);
+		$rows = array();
+		if ($result->num_rows > 0){
+			while ($row = $result->fetch_assoc()){
+				$rows[] = $row;
+			}
+		}
+		return ["rows"=>$rows,"pagination"=>$a["pagination"]];
+	}
+	private function searchpagination($con,$table,$pno,$searchbranchs,$searchid,$n){
+		$query = $con->query(" SELECT COUNT(*) as rows FROM $table WHERE $searchid LIKE '%$searchbranchs%' ");
+		$row = mysqli_fetch_assoc($query);		
+		$pageno = $pno;
+		$numberOfRecordsPerPage = $n;
+
+		$last = ceil($row["rows"]/$numberOfRecordsPerPage);
+
+		$pagination = "<ul class='pagination'>";
+
+		if ($last != 1) {
+			if ($pageno > 1) {
+				$previous = "";
+				$previous = $pageno - 1;
+				$pagination .= "<li class='page-item'><a class='page-link' pn='".$previous."' href='#' style='color:#333;'> Previous </a></li></li>";
+			}
+			for($i=$pageno - 5;$i< $pageno ;$i++){
+				if ($i > 0) {
+					$pagination .= "<li class='page-item'><a class='page-link' pn='".$i."' href='#'> ".$i." </a></li>";
+				}
+				
+			}
+			$pagination .= "<li class='page-item'><a class='page-link' pn='".$pageno."' href='#' style='color:#333;'> $pageno </a></li>";
+			for ($i=$pageno + 1; $i <= $last; $i++) { 
+				$pagination .= "<li class='page-item'><a class='page-link' pn='".$i."' href='#'> ".$i." </a></li>";
+				if ($i > $pageno + 4) {
+					break;
+				}
+			}
+			if ($last > $pageno) {
+				$next = $pageno + 1;
+				$pagination .= "<li class='page-item'><a class='page-link' pn='".$next."' href='#' style='color:#333;'> Next </a></li></ul>";
+			}
+		}
+		$limit = "LIMIT ".($pageno - 1) * $numberOfRecordsPerPage.",".$numberOfRecordsPerPage;
+
+		return ["pagination"=>$pagination,"limit"=>$limit];
+	}
 	public function deleteRecord($table,$pk,$id){
 		if($table == "department"){
 			$pre_stmt = $this->con->prepare("SELECT ".$id." FROM `department` WHERE `parent_dep` = ? ");

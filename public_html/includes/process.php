@@ -168,6 +168,36 @@ if (isset($_POST["manageBranch"])){
 		exit();
 	}	
 }
+if (isset($_POST["searchBranch"])){
+	$m = new Manage();
+	$result = $m->managesearchRecordwithpagination("branchs",$_POST["pageno"],$_POST["searchbranchs"]);
+	$rows = $result["rows"];
+	$pagination = $result["pagination"];
+	if (count($rows) > 0) {
+		$n = (($_POST["pageno"] - 1) * 5) + 1;
+		foreach ($rows as $row){
+			?>
+				<tr>
+		        	<td><?php echo $n; ?></td>
+		        	<td><?php echo $row["branch_name"]; ?></td>
+		        	<td>
+		        		<a href="#" class="btn btn-success btn-sm">Active</a>
+		        	</td>
+		        	<td>
+
+		        		<a href="#" tid="<?php echo $row['bid']; ?>"  class="btn btn-danger btn-sm delete_branch ">Delete</a>
+		        		<a href="#" eid="<?php echo  $row['bid']; ?>" data-toggle="modal" data-target="#form_ubranch" class="btn btn-info btn-sm edit_branch">Edit</a>
+		        	</td>
+		      	</tr>
+			<?php
+			$n++;
+		}
+		?>
+			<tr><td colspan="5"><?php echo $pagination; ?></td></tr>
+		<?php
+		exit();
+	}	
+}
 if (isset($_POST["deleteBranch"])) {
 	$m = new Manage();
 	$result = $m->deleteRecord("branchs","bid",$_POST["id"]);
@@ -196,6 +226,42 @@ if (isset($_POST["update_branch"])) {
 if (isset($_POST["manageDevice"])){
 	$m = new Manage();
 	$result = $m->manageRecordwithpagination("devices",$_POST["pageno"]);
+	$rows = $result["rows"];
+	$pagination = $result["pagination"];
+	if (count($rows) > 0) {
+		$n = (($_POST["pageno"] - 1) * 5) + 1;
+		foreach ($rows as $row){
+			?>
+				<tr>
+		        	<td><?php echo $n; ?></td>
+		        	<td><?php echo $row["device_name"]; ?></td>
+		        	<td><?php echo $row["device_brand"]; ?></td>
+		        	<td><?php echo $row["device_model"]; ?></td>
+		        	<td><?php echo $row["branch_name"]; ?></td>
+		        	<td><?php echo $row["department_name"]; ?></td>
+		        	<td><?php echo $row["added_date"]; ?></td>
+		        	<td><?php echo $row["remarks"]; ?></td>
+		  			<td>
+		        		<a href="#" class="btn btn-success btn-sm">Active</a>
+		        	</td>
+		        	<td>
+
+		        		<a href="#" tid="<?php echo $row['pid']; ?>"  class="btn btn-danger btn-sm delete_device ">Delete</a>
+		        		<a href="#" eid="<?php echo  $row['pid']; ?>" data-toggle="modal" data-target="#form_udevice" class="btn btn-info btn-sm edit_device">Edit</a>
+		        	</td>
+		      	</tr>
+			<?php
+			$n++;
+		}
+		?>
+			<tr><td colspan="10"><?php echo $pagination; ?></td></tr>
+		<?php
+		exit();
+	}	
+}
+if (isset($_POST["searchDevice"])){
+	$m = new Manage();
+	$result = $m->managesearchRecordwithpagination("devices",$_POST["pageno"],$_POST["searchdevices"]);
 	$rows = $result["rows"];
 	$pagination = $result["pagination"];
 	if (count($rows) > 0) {

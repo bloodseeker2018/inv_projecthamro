@@ -706,10 +706,10 @@ $(document).ready(function(){
                                                             }
                                                         });                            
                                                     } else {
-                                                        $("#update_device").val('');
-                                                        $("#update_device").css("border-color", "#cd2d00");
+                                                        $("#udevice_model").val('');
+                                                        $("#udevice_model").css("border-color", "#cd2d00");
                                                         $('#usubmitdev').attr('disabled', true);                    
-                                                        $("#uerror_devicename").text("Invalid Device Name");                      
+                                                        $("#uerror_devicemodel").text("Invalid Model Name");                      
                                                     }
                                                 }
                                             });
@@ -1291,5 +1291,93 @@ $(document).ready(function(){
                 $('#usubmituser').attr('disabled', true);
             }
         }        
+    });
+    $("#searchbranch").focusout(function () {
+        var searchsBranch = $('#searchbranch').val();
+        if (!($.trim(searchsBranch).length == 0)) {
+            $("#searchbranch").css("border-color", "#2eb82e");
+            $('#submitbrasearch').attr('disabled', false);
+            $("#error_searchbranch").text("");
+        } else {
+            $("#searchbranch").css("border-color", "");
+            $('#submitbrasearch').attr('disabled', false);
+            $("#error_searchbranch").text("");
+        }
+    });
+    $("#searchbranch").keyup(function () {
+        var searchsBranch = $('#searchbranch').val();
+        if ($.trim(searchsBranch).length == 0) {
+            $("#searchbranch").css("border-color", "#cd2d00");
+            $('#submitbrasearch').attr('disabled', true);
+            $("#error_searchbranch").text("Enter a Branch Name");          
+        } else {
+            $("#searchbranch").css("border-color", "#2eb82e");
+            $('#submitbrasearch').attr('disabled', false);
+            $("#error_searchbranch").text("");
+        }
+    });
+    $("#search_form").on("submit",function(){
+        var searchsBranch = $('#searchbranch').val();
+        if (!($.trim(searchsBranch).length == 0)) {
+            searchBranch(1);
+            function searchBranch(pn){  
+                $.ajax({
+                    url : DOMAIN+"/includes/process.php",
+                    method : "POST",
+                    data : {searchBranch:1,pageno:pn,searchbranchs:searchsBranch},
+                    success : function(data){
+                        $("#get_branch").html(data);                    
+                    }
+                })
+            }
+        } else {
+            $("#searchbranch").css("border-color", "#cd2d00");
+            $('#submitbrasearch').attr('disabled', true);
+            $("#error_searchbranch").text("Enter a Branch Name");
+        }
+    });
+    $("#searchdevice").focusout(function () {
+        var searchsDevice = $('#searchdevice').val();
+        if (!($.trim(searchsDevice).length == 0)) {
+            $("#searchdevice").css("border-color", "#2eb82e");
+            $('#submitdevsearch').attr('disabled', false);
+            $("#error_searchdevice").text("");
+        } else {
+            $("#searchdevice").css("border-color", "");
+            $('#submitdevsearch').attr('disabled', false);
+            $("#error_searchdevice").text("");
+        }
+    });
+    $("#searchdevice").keyup(function () {
+        var searchsDevice = $('#searchdevice').val();
+        if ($.trim(searchsDevice).length == 0) {
+            $("#searchdevice").css("border-color", "#cd2d00");
+            $('#submitdevsearch').attr('disabled', true);
+            $("#error_searchdevice").text("Enter a Device Name");          
+        } else {
+            $("#searchdevice").css("border-color", "#2eb82e");
+            $('#submitdevsearch').attr('disabled', false);
+            $("#error_searchdevice").text("");
+        }
+    });
+    $("#searchdevice_form").on("submit",function(){
+        var searchsDevice = $('#searchdevice').val();
+        if (!($.trim(searchsDevice).length == 0)) {
+            searchDevice(1);
+            function searchDevice(pn){  
+                $.ajax({
+                    url : DOMAIN+"/includes/process.php",
+                    method : "POST",
+                    data : {searchDevice:1,pageno:pn,searchdevices:searchsDevice},
+                    success : function(data){
+                        $("#get_device").html(data);                    
+                    }
+                })
+            }
+        } else {
+            $("#searchdevice").css("border-color", "#cd2d00");
+            $('#submitdevsearch').attr('disabled', true);
+            $("#error_searchdevice").text("Enter a Device Name");
+        }
     });
 });         

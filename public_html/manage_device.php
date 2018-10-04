@@ -42,6 +42,25 @@ if (!isset($_SESSION["id"])){
 					<?php
 				}
 			?>
+			<form id="searchdevice_form" onsubmit="return false">
+				<div class="input-group mb-2">
+				  <input type="text" id="searchdevice" name="searchdevice" class="form-control" placeholder="Device Name">
+				    <script type="text/javascript">
+	                    document.getElementById("searchdevice").addEventListener("input", forceLower);
+			            function forceLower(evt) {
+			                var words = evt.target.value.toLowerCase().split(/\s+/g);
+			                var newWords = words.map(function(element){
+			                  return element !== "" ?  element[0].toUpperCase() + element.substr(1, element.length) : "";
+			                });
+			                evt.target.value = newWords.join(" "); 
+			            }
+	                </script>
+				  <div class="input-group-append">
+				    <button class="btn btn-primary dashboardbtn" type="submit" value="submit" id="submitdevsearch"><i class="fa fa-search">&nbsp;</i>Search</button>
+				  </div>				  			  
+				</div>
+				<span id="error_searchdevice" class="text-danger" style="font-size: 12px;"></span>
+			</form>
 			<table class="table table-hover table-bordered">
 			    <thead>
 			    	<tr>

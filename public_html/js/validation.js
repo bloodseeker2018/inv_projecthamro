@@ -965,9 +965,9 @@ $(document).ready(function(){
                                                             }
                                                         });                                                        
                                                     } else {
-                                                        $("#device_name").val('')
-                                                        $("#device_name").css("border-color", "#cd2d00");
-                                                        $("#error_devicename").text("Invalid Device Name");
+                                                        $("#device_model").val('')
+                                                        $("#device_model").css("border-color", "#cd2d00");
+                                                        $("#error_devicemodel").text("Invalid Device Model");
                                                         $('#submitdev').attr('disabled', true);                   
                                                     }
                                                 }
