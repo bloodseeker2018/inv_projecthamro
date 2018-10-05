@@ -1380,4 +1380,93 @@ $(document).ready(function(){
             $("#error_searchdevice").text("Enter a Device Name");
         }
     });
+    $("#searchdepartment").focusout(function () {
+        var searchsDepartment = $('#searchdepartment').val();
+        if (!($.trim(searchsDepartment).length == 0)) {
+            $("#searchdepartment").css("border-color", "#2eb82e");
+            $('#submitdepsearch').attr('disabled', false);
+            $("#error_searchdepartment").text("");
+        } else {
+            $("#searchdepartment").css("border-color", "");
+            $('#submitdepsearch').attr('disabled', false);
+            $("#error_searchdepartment").text("");
+        }
+    });
+    $("#searchdepartment").keyup(function () {
+        var searchsDepartment = $('#searchdepartment').val();
+        if ($.trim(searchsDepartment).length == 0) {
+            $("#searchdepartment").css("border-color", "#cd2d00");
+            $('#submitdepsearch').attr('disabled', true);
+            $("#error_searchdepartment").text("Enter a Department Name");          
+        } else {
+            $("#searchdepartment").css("border-color", "#2eb82e");
+            $('#submitdepsearch').attr('disabled', false);
+            $("#error_searchdepartment").text("");
+        }
+    });
+    $("#searchdepartment_form").on("submit",function(){
+        var searchsDepartment = $('#searchdepartment').val();
+        if (!($.trim(searchsDepartment).length == 0)) {
+            searchDepartment(1);
+            function searchDepartment(pn){  
+                $.ajax({
+                    url : DOMAIN+"/includes/process.php",
+                    method : "POST",
+                    data : {searchDepartment:1,pageno:pn,searchdepartments:searchsDepartment},
+                    success : function(data){
+                        $("#get_department").html(data);                    
+                    }
+                })
+            }
+        } else {
+            $("#searchdepartment").css("border-color", "#cd2d00");
+            $('#submitdepsearch').attr('disabled', true);
+            $("#error_searchdepartment").text("Enter a Department Name");
+        }
+    });
+    $("#searchusers").focusout(function () {
+        var searchsUsers = $('#searchusers').val();
+        if (!($.trim(searchsUsers).length == 0)) {
+            $("#searchusers").css("border-color", "#2eb82e");
+            $('#submitusersearch').attr('disabled', false);
+            $("#error_searchusers").text("");
+        } else {
+            $("#searchusers").css("border-color", "");
+            $('#submitusersearch').attr('disabled', false);
+            $("#error_searchusers").text("");
+        }
+    });
+    $("#searchusers").keyup(function () {
+        var searchsUsers = $('#searchusers').val();
+        if ($.trim(searchsUsers).length == 0) {
+            $("#searchusers").css("border-color", "#cd2d00");
+            $('#submitusersearch').attr('disabled', true);
+            $("#error_searchusers").text("Enter a User Name");          
+        } else {
+            $("#searchusers").css("border-color", "#2eb82e");
+            $('#submitusersearch').attr('disabled', false);
+            $("#error_searchusers").text("");
+        }
+    });
+    $("#searchusers_form").on("submit",function(){
+        var searchsUsers = $('#searchusers').val();
+        if (!($.trim(searchsUsers).length == 0)) {
+            searchUsers(1);
+            function searchUsers(pn){  
+                $.ajax({
+                    url : DOMAIN+"/includes/process.php",
+                    method : "POST",
+                    data : {searchUsers:1,pageno:pn,searchusers:searchsUsers},
+                    success : function(data){
+                        $("#get_users").html(data);                    
+                    }
+                })
+            }
+        } else {
+            $("#searchusers").css("border-color", "#cd2d00");
+            $('#submitusersearch').attr('disabled', true);
+            $("#error_searchusers").text("Enter a User Name");
+        }
+    });
+
 });         

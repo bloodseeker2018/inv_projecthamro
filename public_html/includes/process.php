@@ -88,6 +88,44 @@ if (isset($_POST["manageDepartment"])){
 		exit();
 	}	
 }
+if (isset($_POST["searchDepartment"])){
+	$m = new Manage();
+	$result = $m->managesearchRecordwithpagination("department",$_POST["pageno"],$_POST["searchdepartments"]);
+	$rows = $result["rows"];
+	$pagination = $result["pagination"];
+	if (count($rows) > 0) {
+		$n = (($_POST["pageno"] - 1) * 5) + 1;
+		foreach ($rows as $row){
+			?>
+				<tr>
+		        	<td><?php echo $n; ?></td>
+		        	<td><?php echo $row["departments"]; ?></td>
+		        	<td><?php
+		        			if(($row["parent"])== ''){
+		        				echo "Root";
+		        		 	} else { 
+		        	 			echo $row["parent"]; 
+		        	 		}
+		        	 	?>
+		        	</td>
+		        	<td>
+		        		<a href="#" class="btn btn-success btn-sm">Active</a>
+		        	</td>
+		        	<td>
+
+		        		<a href="#" tid="<?php echo $row['did']; ?>"  class="btn btn-danger btn-sm delete_dep ">Delete</a>
+		        		<a href="#" eid="<?php echo  $row['did']; ?>" data-toggle="modal" data-target="#form_udepartment" class="btn btn-info btn-sm edit_dep ">Edit</a>
+		        	</td>
+		      	</tr>
+			<?php
+			$n++;
+		}
+		?>
+			<tr><td colspan="5"><?php echo $pagination; ?></td></tr>
+		<?php
+		exit();
+	}	
+}
 if (isset($_POST["deleteDepartment"])) {
 	$m = new Manage();
 	$result = $m->deleteRecord("department","did",$_POST["id"]);
@@ -324,6 +362,38 @@ if (isset($_POST["update_device"])) {
 if (isset($_POST["manageUsers"])){
 	$m = new Manage();
 	$result = $m->manageRecordwithpagination("user",$_POST["pageno"]);
+	$rows = $result["rows"];
+	$pagination = $result["pagination"];
+	if (count($rows) > 0) {
+		$n = (($_POST["pageno"] - 1) * 5) + 1;
+		foreach ($rows as $row){
+			?>
+				<tr>
+		        	<td><?php echo $n; ?></td>		        	
+		        	<td><?php echo $row["username"]; ?></td>
+		        	<td><?php echo $row["firstname"]; ?></td>
+		        	<td><?php echo $row["lastname"]; ?></td>
+		        	<td><?php echo $row["usertype"]; ?></td>
+		        	<td><?php echo $row["remarks"]; ?></td>
+		        	<td><?php echo $row["register_date"]; ?></td>
+		        	<td><?php echo $row["last_login"]; ?></td>
+		        	<td>
+		        		<a href="#" tid="<?php echo $row['id']; ?>"  class="btn btn-danger btn-sm delete_user ">Delete</a>
+		        		<a href="#" eid="<?php echo  $row['id']; ?>" data-toggle="modal" data-target="#form_uuser" class="btn btn-info btn-sm edit_user ">Edit</a>
+		        	</td>
+		      	</tr>
+			<?php
+			$n++;
+		}
+		?>
+			<tr><td colspan="9"><?php echo $pagination; ?></td></tr>
+		<?php
+		exit();
+	}	
+}
+if (isset($_POST["searchUsers"])){
+	$m = new Manage();
+	$result = $m->managesearchRecordwithpagination("user",$_POST["pageno"],$_POST["searchusers"]);
 	$rows = $result["rows"];
 	$pagination = $result["pagination"];
 	if (count($rows) > 0) {

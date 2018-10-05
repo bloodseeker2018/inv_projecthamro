@@ -44,7 +44,7 @@ if (!isset($_SESSION["id"])){
 			?>
 			<form id="search_form" onsubmit="return false">
 				<div class="input-group mb-2">
-				  <input type="text" id="searchbranch" name="searchbranch" class="form-control" placeholder="Branch Name">
+				  <input type="text" id="searchbranch" name="searchbranch" class="form-control" placeholder="Branch Name To Search">
 				    <script type="text/javascript">
 	                    document.getElementById("searchbranch").addEventListener("input", forceLower);
 			            function forceLower(evt) {

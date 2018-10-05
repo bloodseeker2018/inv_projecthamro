@@ -44,7 +44,7 @@ if (!isset($_SESSION["id"])){
 			?>
 			<form id="searchdevice_form" onsubmit="return false">
 				<div class="input-group mb-2">
-				  <input type="text" id="searchdevice" name="searchdevice" class="form-control" placeholder="Device Name">
+				  <input type="text" id="searchdevice" name="searchdevice" class="form-control" placeholder="Device Name To Search">
 				    <script type="text/javascript">
 	                    document.getElementById("searchdevice").addEventListener("input", forceLower);
 			            function forceLower(evt) {
