@@ -95,7 +95,7 @@ class Manage
 		return ["rows"=>$rows,"pagination"=>$a["pagination"]];
 	}
 	private function searchpagination($con,$table,$pno,$searchbranchs,$searchid,$n){
-		$query = $con->query(" SELECT COUNT(*) as rows FROM $table WHERE $searchid LIKE '%$searchbranchs%' ");
+		$query = $con->query("SELECT COUNT(*) as rows FROM $table WHERE $searchid LIKE '%$searchbranchs%' ");
 		$row = mysqli_fetch_assoc($query);		
 		$pageno = $pno;
 		$numberOfRecordsPerPage = $n;
