@@ -1367,15 +1367,19 @@ $(document).ready(function(){
         console.log(checkid);
         if (checkid == "brand"){
             window.selectsearchid = "device_brand";
+            $('#searchdevice').attr('placeholder','Device Brand To Search');
             console.log(selectsearchid);
         } else if (checkid == "model"){
             window.selectsearchid = "device_model";
+            $('#searchdevice').attr('placeholder','Device Model To Search');
             console.log(selectsearchid);
         } else if (checkid == "branch"){
             window.selectsearchid = "branch_name";
+            $('#searchdevice').attr('placeholder','Device Branch To Search');
             console.log(selectsearchid);
         } else {
             window.selectsearchid = "device_name";
+            $('#searchdevice').attr('placeholder','Device Name To Search');
             console.log(selectsearchid);
         }
     });
