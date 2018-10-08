@@ -1360,7 +1360,29 @@ $(document).ready(function(){
             $("#error_searchdevice").text("");
         }
     });
+    window.selectsearchid = "device_name";
+    console.log(selectsearchid);
+    $("#checksearch input:radio").change(function() {
+        checkid = $(this).val();
+        console.log(checkid);
+        if (checkid == "brand"){
+            window.selectsearchid = "device_brand";
+            console.log(selectsearchid);
+        } else if (checkid == "model"){
+            window.selectsearchid = "device_model";
+            console.log(selectsearchid);
+        } else if (checkid == "branch"){
+            window.selectsearchid = "branch_name";
+            console.log(selectsearchid);
+        } else {
+            window.selectsearchid = "device_name";
+            console.log(selectsearchid);
+        }
+    });
     $("#searchdevice_form").on("submit",function(){
+        var searchcatfield = window.selectsearchid;        
+        console.log(window.selectsearchid);
+        console.log(searchcatfield);
         var searchsDevice = $('#searchdevice').val();
         if (!($.trim(searchsDevice).length == 0)) {
             searchDevice(1);
@@ -1368,7 +1390,7 @@ $(document).ready(function(){
                 $.ajax({
                     url : DOMAIN+"/includes/process.php",
                     method : "POST",
-                    data : {searchDevice:1,pageno:pn,searchdevices:searchsDevice},
+                    data : {searchDevice:1,pageno:pn,searchdevices:searchsDevice,searchfields:searchcatfield},
                     success : function(data){
                         $("#get_device").html(data);                    
                     }
@@ -1423,7 +1445,7 @@ $(document).ready(function(){
             $('#submitdepsearch').attr('disabled', true);
             $("#error_searchdepartment").text("Enter a Department Name");
         }
-    });
+    });    
     $("#searchusers").focusout(function () {
         var searchsUsers = $('#searchusers').val();
         if (!($.trim(searchsUsers).length == 0)) {
@@ -1448,7 +1470,7 @@ $(document).ready(function(){
             $("#error_searchusers").text("");
         }
     });
-    $("#searchusers_form").on("submit",function(){
+    $("#searchusers_form").on("submit",function(){        
         var searchsUsers = $('#searchusers').val();
         if (!($.trim(searchsUsers).length == 0)) {
             searchUsers(1);
@@ -1467,6 +1489,5 @@ $(document).ready(function(){
             $('#submitusersearch').attr('disabled', true);
             $("#error_searchusers").text("Enter a User Name");
         }
-    });
-
+    });    
 });         

@@ -299,7 +299,7 @@ if (isset($_POST["manageDevice"])){
 }
 if (isset($_POST["searchDevice"])){
 	$m = new Manage();
-	$result = $m->managesearchRecordwithpagination("devices",$_POST["pageno"],$_POST["searchdevices"]);
+	$result = $m->managesearchRecordwithpagination("devices",$_POST["pageno"],$_POST["searchdevices"],$_POST["searchfields"]);
 	$rows = $result["rows"];
 	$pagination = $result["pagination"];
 	if (count($rows) > 0) {

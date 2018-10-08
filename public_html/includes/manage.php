@@ -67,15 +67,21 @@ class Manage
 
 		return ["pagination"=>$pagination,"limit"=>$limit];
 	}
-	public function managesearchRecordwithpagination($table,$pno,$searchbranchs){		
+	public function managesearchRecordwithpagination($table,$pno,$searchbranchs,$searchcatfield){		
 		if ($table == "department"){
 			$searchid = "department_name";
 			$a = $this->searchpagination($this->con,$table,$pno,$searchbranchs,$searchid,5);
 			$sql = "SELECT p.did,p.department_name as departments, c.department_name as parent, p.status FROM department p LEFT JOIN department c ON p.parent_dep=c.did WHERE p.department_name LIKE '%$searchbranchs%' ".$a["limit"];
 		} else if ($table == "devices"){
-			$searchid = "device_name";
-			$a = $this->searchpagination($this->con,$table,$pno,$searchbranchs,$searchid,5);
-			$sql = "SELECT p.pid,p.device_name,p.device_brand,p.device_model,b.branch_name,d.department_name,p.added_date,p.remarks,p.d_status FROM devices p,branchs b,department d WHERE p.bid = b.bid AND p.did = d.did AND $searchid LIKE '%$searchbranchs%' ".$a["limit"];
+			if ($searchcatfield == "branch_name"){
+				$searchid = $searchcatfield;
+				$a = $this->searchpagination($this->con,$table,$pno,$searchbranchs,$searchid,5);
+				$sql = "SELECT p.pid,p.device_name,p.device_brand,p.device_model,b.branch_name,d.department_name,p.added_date,p.remarks,p.d_status FROM devices p,branchs b,department d WHERE p.bid = b.bid AND p.did = d.did AND b.branch_name LIKE '%$searchbranchs%' ".$a["limit"];
+			} else {
+				$searchid = $searchcatfield;
+				$a = $this->searchpagination($this->con,$table,$pno,$searchbranchs,$searchid,5);
+				$sql = "SELECT p.pid,p.device_name,p.device_brand,p.device_model,b.branch_name,d.department_name,p.added_date,p.remarks,p.d_status FROM devices p,branchs b,department d WHERE p.bid = b.bid AND p.did = d.did AND $searchid LIKE '%$searchbranchs%' ".$a["limit"];
+			}
 		} else if ($table == "user"){
 			$searchid = "username";
 			$a = $this->searchpagination($this->con,$table,$pno,$searchbranchs,$searchid,5);
@@ -95,7 +101,11 @@ class Manage
 		return ["rows"=>$rows,"pagination"=>$a["pagination"]];
 	}
 	private function searchpagination($con,$table,$pno,$searchbranchs,$searchid,$n){
-		$query = $con->query("SELECT COUNT(*) as rows FROM $table WHERE $searchid LIKE '%$searchbranchs%' ");
+		if ($searchid == "branch_name"){
+			$query = $con->query("SELECT COUNT('p.pid,p.device_name,p.device_brand,p.device_model,b.branch_name,d.department_name,p.added_date,p.remarks,p.d_status') as rows FROM devices p,branchs b,department d WHERE p.bid = b.bid AND p.did = d.did AND b.branch_name LIKE '%$searchbranchs%' ");
+		} else {
+			$query = $con->query("SELECT COUNT(*) as rows FROM $table WHERE $searchid LIKE '%$searchbranchs%' ");
+		}		
 		$row = mysqli_fetch_assoc($query);		
 		$pageno = $pno;
 		$numberOfRecordsPerPage = $n;

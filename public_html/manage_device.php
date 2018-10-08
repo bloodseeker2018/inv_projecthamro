@@ -41,7 +41,8 @@ if (!isset($_SESSION["id"])){
 						</div>
 					<?php
 				}
-			?>
+			?>			
+			<br/>
 			<form id="searchdevice_form" onsubmit="return false">
 				<div class="input-group mb-2">
 				  <input type="text" id="searchdevice" name="searchdevice" class="form-control" placeholder="Device Name To Search">
@@ -61,6 +62,22 @@ if (!isset($_SESSION["id"])){
 				</div>
 				<span id="error_searchdevice" class="text-danger" style="font-size: 12px;"></span>
 			</form>
+			<div id="checksearch" class="btn-group btn-group-toggle" data-toggle="buttons">
+			  <label class="btn btn-secondary dashboardbtn active">
+			    <input type="radio" name="options" autocomplete="off" value="device" checked>Device
+			  </label>
+			  <label class="btn btn-secondary dashboardbtn">
+			    <input type="radio" name="options" autocomplete="off" value="brand" >Brand
+			  </label>
+			  <label class="btn btn-secondary dashboardbtn">
+			    <input type="radio" name="options" autocomplete="off" value="model" >Model
+			  </label>
+			  <label class="btn btn-secondary dashboardbtn">
+			    <input type="radio" name="options" autocomplete="off" value="branch" >Branch
+			  </label>
+			</div>
+			</br>
+			</br>			
 			<table class="table table-hover table-bordered">
 			    <thead>
 			    	<tr>
