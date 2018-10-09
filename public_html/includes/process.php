@@ -393,7 +393,7 @@ if (isset($_POST["manageUsers"])){
 }
 if (isset($_POST["searchUsers"])){
 	$m = new Manage();
-	$result = $m->managesearchRecordwithpagination("user",$_POST["pageno"],$_POST["searchusers"]);
+	$result = $m->managesearchRecordwithpagination("user",$_POST["pageno"],$_POST["searchusers"],$_POST["searchuserfields"]);
 	$rows = $result["rows"];
 	$pagination = $result["pagination"];
 	if (count($rows) > 0) {

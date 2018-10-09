@@ -83,7 +83,7 @@ class Manage
 				$sql = "SELECT p.pid,p.device_name,p.device_brand,p.device_model,b.branch_name,d.department_name,p.added_date,p.remarks,p.d_status FROM devices p,branchs b,department d WHERE p.bid = b.bid AND p.did = d.did AND $searchid LIKE '%$searchbranchs%' ".$a["limit"];
 			}
 		} else if ($table == "user"){
-			$searchid = "username";
+			$searchid = $searchcatfield;
 			$a = $this->searchpagination($this->con,$table,$pno,$searchbranchs,$searchid,5);
 			$sql = "SELECT * FROM $table WHERE $searchid LIKE '%$searchbranchs%' ".$a["limit"];
 		} else {

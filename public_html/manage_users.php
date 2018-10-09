@@ -61,6 +61,19 @@ if (!isset($_SESSION["id"])){
 				</div>
 				<span id="error_searchusers" class="text-danger" style="font-size: 12px;"></span>
 			</form>
+			<div id="checksearchuserfield" class="btn-group btn-group-toggle" data-toggle="buttons">
+			  <label class="btn btn-secondary dashboardbtn active">
+			    <input type="radio" name="optionsuser" autocomplete="off" value="username" checked>User Name
+			  </label>
+			  <label class="btn btn-secondary dashboardbtn">
+			    <input type="radio" name="optionsuser" autocomplete="off" value="firstname" >First Name
+			  </label>
+			  <label class="btn btn-secondary dashboardbtn">
+			    <input type="radio" name="optionsuser" autocomplete="off" value="lastname" >Last Name
+			  </label>
+			</div>
+			<br/>
+			<br/>
 			<table class="table table-hover table-bordered">
 			    <thead>
 			    	<tr>

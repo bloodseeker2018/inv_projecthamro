@@ -140,18 +140,24 @@ $(document).ready(function(){
             }
         })
     })
-    $("#update_department").focusout(function () {
+    function jqueryactionupdateDepartment(){
         var suDepartment = $('#update_department').val();
         var suPardep = $('#parent_dep').val();
         if ($.trim(suDepartment).length == 0) {
-            $(this).css("border-color", "#cd2d00");
+            $("#update_department").css("border-color", "#cd2d00");
             $('#submitdep').attr('disabled', true);
             $("#error_udepartment").text("Enter a Department Name");          
         } else {
-            $(this).css("border-color", "#2eb82e");
+            $("#update_department").css("border-color", "#2eb82e");
             $("#error_udepartment").text("");                            
             $('#submitdep').attr('disabled', false);               
-        }
+        }    
+    }
+    $("#update_department").focusout(function () {
+        jqueryactionupdateDepartment();      
+    });
+    $("#update_department").keyup(function () {
+        jqueryactionupdateDepartment();      
     });
     $("#parent_dep").focusout(function () {
         var suPardep = $('#parent_dep').val();
@@ -324,17 +330,23 @@ $(document).ready(function(){
             }
         })
     })
-    $("#update_branch").focusout(function () {
+    function jqueryactionupdateBranchname(){
         var sBranchs = $('#update_branch').val();
         if ($.trim(sBranchs).length == 0) {
-            $(this).css("border-color", "#cd2d00");
+            $("#update_branch").css("border-color", "#cd2d00");
             $('#submitbranch').attr('disabled', true);
             $("#error_ubranch").text("Enter a Branch Name");          
         } else {
-            $(this).css("border-color", "#2eb82e");
+            $("#update_branch").css("border-color", "#2eb82e");
             $('#submitbranch').attr('disabled', false);
             $("#error_ubranch").text("");
-        }
+        }    
+    }
+    $("#update_branch").focusout(function () {
+        jqueryactionupdateBranchname();   
+    });
+    $("#update_branch").keyup(function () {
+        jqueryactionupdateBranchname();   
     });
     function dismissBranchaction(){
        $("#update_branch").css("border-color", "");  
@@ -486,41 +498,59 @@ $(document).ready(function(){
             }
         })
     });
-    $("#update_device").focusout(function () {
+    function jqueryactionupdateDevicename(){
         var usDevicename = $('#update_device').val();
         if ($.trim(usDevicename).length == 0) {
-            $(this).css("border-color", "#cd2d00");
+            $("#update_device").css("border-color", "#cd2d00");
             $('#usubmitdev').attr('disabled', true);
             $("#uerror_devicename").text("Enter a Device Name");          
         } else {
-            $(this).css("border-color", "#2eb82e");
+            $("#update_device").css("border-color", "#2eb82e");
             $('#usubmitdev').attr('disabled', false);
             $("#uerror_devicename").text("");
-        }   
+        }    
+    }
+    $("#update_device").focusout(function () {
+        jqueryactionupdateDevicename();       
     });
-    $("#udevice_brand").focusout(function () {
+    $("#update_device").keyup(function () {
+        jqueryactionupdateDevicename();       
+    });
+    function jqueryactionupdateBrandname(){
         var usDevicebrand = $('#udevice_brand').val();
         if ($.trim(usDevicebrand).length == 0) {
-            $(this).css("border-color", "#cd2d00");
+            $("#udevice_brand").css("border-color", "#cd2d00");
             $('#usubmitdev').attr('disabled', true);
             $("#uerror_devicebrand").text("Enter the Device Brand");          
         } else {
-            $(this).css("border-color", "#2eb82e");
+            $("#udevice_brand").css("border-color", "#2eb82e");
             $('#usubmitdev').attr('disabled', false);
             $("#uerror_devicebrand").text("");
-        }   
+        }    
+    }
+    $("#udevice_brand").focusout(function () {
+        jqueryactionupdateBrandname();       
     });
-    $("#udevice_model").focusout(function () {
+    $("#udevice_brand").keyup(function () {
+        jqueryactionupdateBrandname();       
+    });
+    function jqueryactionupdateDevicemodel(){
         var usDevicemodel = $('#udevice_model').val();
         if ($.trim(usDevicemodel).length == 0) {
-            $(this).css("border-color", "#cd2d00");
+            $("#udevice_model").css("border-color", "#cd2d00");
             $('#usubmitdev').attr('disabled', true);
             $("#uerror_devicemodel").text("Enter the Device Model No.");          
         } else {
-            $(this).css("border-color", "#2eb82e");
+            $("#udevice_model").css("border-color", "#2eb82e");
             $('#usubmitdev').attr('disabled', false);
             $("#uerror_devicemodel").text("");
-        }   
+        }    
+    }
+    $("#udevice_model").focusout(function () {
+        jqueryactionupdateDevicemodel();            
+    });
+    $("#udevice_model").keyup(function () {
+        jqueryactionupdateDevicemodel();            
     });
     function uvalidateSelectbranch(){
         if (document.update_device_form.uselect_branch.value == ""){
@@ -529,7 +559,7 @@ $(document).ready(function(){
             return true;
         }
     }
-    $("#uselect_branch").focusout(function () {
+    function jqueryactionupdateSelectbranch(){
         if (!uvalidateSelectbranch()){
             $("#uselect_branch").css("border-color", "#cd2d00");
             $('#usubmitdev').attr('disabled', true);
@@ -538,7 +568,13 @@ $(document).ready(function(){
             $("#uselect_branch").css("border-color", "#2eb82e");
             $('#usubmitdev').attr('disabled', false);
             $("#uerror_devicebranch").text("");
-        }
+        }    
+    }
+    $("#uselect_branch").focusout(function () {
+        jqueryactionupdateSelectbranch();    
+    });
+    $("#uselect_branch").keyup(function () {
+        jqueryactionupdateSelectbranch();    
     });
     function uvalidateSelectdepartment(){
         if (document.update_device_form.uselect_dep.value == ""){
@@ -547,44 +583,62 @@ $(document).ready(function(){
             return true;
         }
     }
-    $("#uselect_dep").focusout(function () {
+    function jqueryactionupdateSelectdepartment(){
         if (!uvalidateSelectdepartment()){
-            $(this).css("border-color", "#cd2d00");
+            $("#uselect_dep").css("border-color", "#cd2d00");
             $('#usubmitdev').attr('disabled', true);
             $("#uerror_devicedepartment").text("Select a Department");               
         } else {
-            $(this).css("border-color", "#2eb82e");
+            $("#uselect_dep").css("border-color", "#2eb82e");
             $('#usubmitdev').attr('disabled', false);
             $("#uerror_devicedepartment").text("");
-        }
+        }    
+    }
+    $("#uselect_dep").focusout(function () {
+        jqueryactionupdateSelectdepartment()    
     });
-    $("#udevice_installationdate").focusout(function () {
+    $("#uselect_dep").keyup(function () {
+        jqueryactionupdateSelectdepartment()    
+    });
+    function jqueryactionupdateDeviceinstall(){
         var usDeviceinstallationdate = $('#udevice_installationdate').val();
         if ($.trim(usDeviceinstallationdate).length == 0) {
-            $(this).css("border-color", "#cd2d00");
+            $("#udevice_installationdate").css("border-color", "#cd2d00");
             $('#usubmitdev').attr('disabled', true);
             $("#uerror_devicedoi").text("Enter the Installation Date");          
         } else {
-            $(this).css("border-color", "#2eb82e");
+            $("#udevice_installationdate").css("border-color", "#2eb82e");
             $('#usubmitdev').attr('disabled', false);
             $("#uerror_devicedoi").text("");
-        }   
+        }    
+    }
+    $("#udevice_installationdate").focusout(function () {
+        jqueryactionupdateDeviceinstall();      
     });
-    $("#uremarks").focusout(function () {
+    $("#udevice_installationdate").keyup(function () {
+        jqueryactionupdateDeviceinstall();      
+    });
+    function jqueryactionUpdatebranchvalue(){
         var usDeviceremarks = $('#uremarks').val();
         if ($.trim(usDeviceremarks).length == 0) {
-            $(this).css("border-color", "#cd2d00");
+            $("#uremarks").css("border-color", "#cd2d00");
             $('#usubmitdev').attr('disabled', true);
             $("#uerror_deviceremarks").text("Enter the Remarks");          
         } else if ($.trim(usDeviceremarks).length < 3) {
-            $(this).css("border-color", "#cd2d00");
+            $("#uremarks").css("border-color", "#cd2d00");
             $('#usubmitdev').attr('disabled', true);
             $("#uerror_deviceremarks").text("Too short Remarks");          
         }else {
-            $(this).css("border-color", "#2eb82e");
+            $("#uremarks").css("border-color", "#2eb82e");
             $('#usubmitdev').attr('disabled', false);
             $("#uerror_deviceremarks").text("");
-        }   
+        }    
+    }
+    $("#uremarks").focusout(function () {
+        jqueryactionUpdatebranchvalue();      
+    });
+    $("#uremarks").keyup(function () {
+        jqueryactionUpdatebranchvalue();      
     });
     function uclearDevicefield(){
         $("#update_device").val('');
@@ -951,7 +1005,10 @@ $(document).ready(function(){
     }
     $("#uusertype").focusout(function(){
         jqueryactionsuUsertype();
-    })
+    });
+    $("#uusertype").keyup(function(){
+        jqueryactionsuUsertype();
+    });
     function validateuPassword(suPassword) {
         var filter3 = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
         if (filter3.test(suPassword)) {
@@ -1474,7 +1531,29 @@ $(document).ready(function(){
             $("#error_searchusers").text("");
         }
     });
-    $("#searchusers_form").on("submit",function(){        
+    window.selectsearchuserfield = "username";
+    console.log(selectsearchuserfield);
+    $("#checksearchuserfield input:radio").change(function() {
+        checkuserfield = $(this).val();
+        console.log(checkuserfield);
+        if (checkuserfield == "firstname"){
+            window.selectsearchuserfield = "firstname";
+            $('#searchusers').attr('placeholder','User First Name To Search');
+            console.log(selectsearchuserfield);
+        } else if (checkuserfield == "lastname"){
+            window.selectsearchuserfield = "lastname";
+            $('#searchusers').attr('placeholder','User Last Name To Search');
+            console.log(selectsearchuserfield);
+        } else {
+            window.selectsearchuserfield = "username";
+            $('#searchusers').attr('placeholder','User Name To Search');
+            console.log(selectsearchuserfield);
+        }
+    });
+    $("#searchusers_form").on("submit",function(){
+        var searchfiledUsers = window.selectsearchuserfield;        
+        console.log(window.selectsearchuserfield);
+        console.log(searchfiledUsers);        
         var searchsUsers = $('#searchusers').val();
         if (!($.trim(searchsUsers).length == 0)) {
             searchUsers(1);
@@ -1482,7 +1561,7 @@ $(document).ready(function(){
                 $.ajax({
                     url : DOMAIN+"/includes/process.php",
                     method : "POST",
-                    data : {searchUsers:1,pageno:pn,searchusers:searchsUsers},
+                    data : {searchUsers:1,pageno:pn,searchusers:searchsUsers,searchuserfields:searchfiledUsers},
                     success : function(data){
                         $("#get_users").html(data);                    
                     }

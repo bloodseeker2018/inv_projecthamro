@@ -586,20 +586,26 @@ $(document).ready(function(){
             }
         });
     }
-    $("#department_name").focusout(function () {
+    function jqueryactionDepartmentname(){
         var sDepartment = $('#department_name').val();
         var sPardep = $('#parent_dep').val();
         if ($.trim(sDepartment).length == 0) {
-            $(this).css("border-color", "#cd2d00");
+            $("#department_name").css("border-color", "#cd2d00");
             $('#submitdep').attr('disabled', true);
             $("#error_department").text("Enter a Department Name");          
         } else {
-            $(this).css("border-color", "#2eb82e");
+            $("#department_name").css("border-color", "#2eb82e");
             $("#error_department").text("");
             if (!($.trim(sPardep).length == 0)){                
                 $('#submitdep').attr('disabled', false);                
             }
-        }
+        }   
+    }
+    $("#department_name").focusout(function () {
+        jqueryactionDepartmentname();    
+    });
+    $("#department_name").keyup(function () {
+        jqueryactionDepartmentname();    
     });
     $("#parent_dep").focusout(function () {
         var sPardep = $('#parent_dep').val();
@@ -711,17 +717,23 @@ $(document).ready(function(){
             $('#submitdep').attr('disabled', true);
         }
     });
-    $("#branch_name").focusout(function () {
+    function jqueryactionBranchname(){
         var sBranch = $('#branch_name').val();
         if ($.trim(sBranch).length == 0) {
-            $(this).css("border-color", "#cd2d00");
+            $("#branch_name").css("border-color", "#cd2d00");
             $('#submitbra').attr('disabled', true);
             $("#error_branch").text("Enter a Branch Name");          
         } else {
-            $(this).css("border-color", "#2eb82e");
+            $("#branch_name").css("border-color", "#2eb82e");
             $('#submitbra').attr('disabled', false);
             $("#error_branch").text("");
-        }
+        }    
+    }
+    $("#branch_name").focusout(function () {
+        jqueryactionBranchname();    
+    });
+    $("#branch_name").keyup(function () {
+        jqueryactionBranchname();    
     });
     function branchDismissAction(){
         $("#branch_name").css("border-color", "");  
@@ -787,41 +799,59 @@ $(document).ready(function(){
             });
         }
     });
-    $("#device_name").focusout(function () {
+    function jqueryactionDevicename(){
         var sDevicename = $('#device_name').val();
         if ($.trim(sDevicename).length == 0) {
-            $(this).css("border-color", "#cd2d00");
+            $("#device_name").css("border-color", "#cd2d00");
             $('#submitdev').attr('disabled', true);
             $("#error_devicename").text("Enter a Device Name");          
         } else {
-            $(this).css("border-color", "#2eb82e");
+            $("#device_name").css("border-color", "#2eb82e");
             $('#submitdev').attr('disabled', false);
             $("#error_devicename").text("");
-        }   
+        }    
+    }
+    $("#device_name").focusout(function () {
+        jqueryactionDevicename();       
     });
-    $("#device_brand").focusout(function () {
+    $("#device_name").keyup(function () {
+        jqueryactionDevicename();       
+    });
+    function jqueryactionDevicebrandname(){
         var sDevicebrand = $('#device_brand').val();
         if ($.trim(sDevicebrand).length == 0) {
-            $(this).css("border-color", "#cd2d00");
+            $("#device_brand").css("border-color", "#cd2d00");
             $('#submitdev').attr('disabled', true);
             $("#error_devicebrand").text("Enter the Device Brand");          
         } else {
-            $(this).css("border-color", "#2eb82e");
+            $("#device_brand").css("border-color", "#2eb82e");
             $('#submitdev').attr('disabled', false);
             $("#error_devicebrand").text("");
-        }   
+        }     
+    }
+    $("#device_brand").focusout(function () {
+        jqueryactionDevicebrandname();       
     });
-    $("#device_model").focusout(function () {
+    $("#device_brand").keyup(function () {
+        jqueryactionDevicebrandname();       
+    });
+    function jqueryactionDevicemodelno(){
         var sDevicemodel = $('#device_model').val();
         if ($.trim(sDevicemodel).length == 0) {
-            $(this).css("border-color", "#cd2d00");
+            $("#device_model").css("border-color", "#cd2d00");
             $('#submitdev').attr('disabled', true);
             $("#error_devicemodel").text("Enter the Device Model No.");          
         } else {
-            $(this).css("border-color", "#2eb82e");
+            $("#device_model").css("border-color", "#2eb82e");
             $('#submitdev').attr('disabled', false);
             $("#error_devicemodel").text("");
-        }   
+        }    
+    }
+    $("#device_model").focusout(function () {
+        jqueryactionDevicemodelno();       
+    });
+    $("#device_model").keyup(function () {
+        jqueryactionDevicemodelno();       
     });
     function validateSelectbranch(){
         if (document.device_form.select_branch.value == ""){
@@ -859,33 +889,45 @@ $(document).ready(function(){
             $("#error_devicedepartment").text("");
         }
     });
-    $("#device_installationdate").focusout(function () {
+    function jqueryactionDeviceinstalldate(){
         var sDeviceinstallationdate = $('#device_installationdate').val();
         if ($.trim(sDeviceinstallationdate).length == 0) {
-            $(this).css("border-color", "#cd2d00");
+            $("#device_installationdate").css("border-color", "#cd2d00");
             $('#submitdev').attr('disabled', true);
             $("#error_devicedoi").text("Enter the Installation Date");          
         } else {
-            $(this).css("border-color", "#2eb82e");
+            $("#device_installationdate").css("border-color", "#2eb82e");
             $('#submitdev').attr('disabled', false);
             $("#error_devicedoi").text("");
-        }   
+        }    
+    }
+    $("#device_installationdate").focusout(function () {
+        jqueryactionDeviceinstalldate();       
     });
-    $("#remarks").focusout(function () {
+    $("#device_installationdate").keyup(function () {
+        jqueryactionDeviceinstalldate();       
+    });
+    function jqueryactionDeviceremarks(){
         var sDeviceremarks = $('#remarks').val();
         if ($.trim(sDeviceremarks).length == 0) {
-            $(this).css("border-color", "#cd2d00");
+            $("#remarks").css("border-color", "#cd2d00");
             $('#submitdev').attr('disabled', true);
             $("#error_deviceremarks").text("Enter the Remarks");          
         } else if ($.trim(sDeviceremarks).length < 3) {
-            $(this).css("border-color", "#cd2d00");
+            $("#remarks").css("border-color", "#cd2d00");
             $('#submitdev').attr('disabled', true);
             $("#error_deviceremarks").text("Too short Remarks");          
         }else {
-            $(this).css("border-color", "#2eb82e");
+            $("#remarks").css("border-color", "#2eb82e");
             $('#submitdev').attr('disabled', false);
             $("#error_deviceremarks").text("");
-        }   
+        }    
+    }
+    $("#remarks").focusout(function () {
+        jqueryactionDeviceremarks();       
+    });
+    $("#remarks").keyup(function () {
+        jqueryactionDeviceremarks();       
     });
     function clearDevicefield(){
         $("#device_name").val('');
