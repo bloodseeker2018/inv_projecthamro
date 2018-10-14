@@ -498,6 +498,11 @@ $(document).ready(function(){
             }
         })
     });
+    $("body").delegate(".activebutton","click",function(){
+        
+        $(".activebutton").css("background-color","#E6821E");
+        $(".activebutton").text("Inactive");    
+    });
     function jqueryactionupdateDevicename(){
         var usDevicename = $('#update_device').val();
         if ($.trim(usDevicename).length == 0) {
@@ -1544,7 +1549,11 @@ $(document).ready(function(){
             window.selectsearchuserfield = "lastname";
             $('#searchusers').attr('placeholder','User Last Name To Search');
             console.log(selectsearchuserfield);
-        } else {
+        } else if (checkuserfield == "branchname"){
+            window.selectsearchuserfield = "remarks";
+            $('#searchusers').attr('placeholder','User Branch Name To Search');
+            console.log(selectsearchuserfield);
+        }else {
             window.selectsearchuserfield = "username";
             $('#searchusers').attr('placeholder','User Name To Search');
             console.log(selectsearchuserfield);

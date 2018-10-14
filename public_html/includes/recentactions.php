@@ -23,7 +23,7 @@ class Users
 		}				
 	}
 	public function getPromsgdataadmin(){
-		$pre_stmt = $this->con->prepare("SELECT * FROM promessage");
+		$pre_stmt = $this->con->prepare("SELECT * FROM promessage ORDER BY mid DESC");
 		$pre_stmt->execute() or die($this->con->error);
 		$result = $pre_stmt->get_result();
 		$rows = array();

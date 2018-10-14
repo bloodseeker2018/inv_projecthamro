@@ -90,7 +90,7 @@ if (isset($_POST["manageDepartment"])){
 }
 if (isset($_POST["searchDepartment"])){
 	$m = new Manage();
-	$result = $m->managesearchRecordwithpagination("department",$_POST["pageno"],$_POST["searchdepartments"]);
+	$result = $m->managesearchRecordwithpagination("department",$_POST["pageno"],$_POST["searchdepartments"],"department_name");
 	$rows = $result["rows"];
 	$pagination = $result["pagination"];
 	if (count($rows) > 0) {
@@ -189,10 +189,9 @@ if (isset($_POST["manageBranch"])){
 		        	<td><?php echo $n; ?></td>
 		        	<td><?php echo $row["branch_name"]; ?></td>
 		        	<td>
-		        		<a href="#" class="btn btn-success btn-sm">Active</a>
+		        		<a href="#" class="btn btn-success btn-sm activebutton">Active</a>
 		        	</td>
 		        	<td>
-
 		        		<a href="#" tid="<?php echo $row['bid']; ?>"  class="btn btn-danger btn-sm delete_branch ">Delete</a>
 		        		<a href="#" eid="<?php echo  $row['bid']; ?>" data-toggle="modal" data-target="#form_ubranch" class="btn btn-info btn-sm edit_branch">Edit</a>
 		        	</td>
@@ -208,7 +207,7 @@ if (isset($_POST["manageBranch"])){
 }
 if (isset($_POST["searchBranch"])){
 	$m = new Manage();
-	$result = $m->managesearchRecordwithpagination("branchs",$_POST["pageno"],$_POST["searchbranchs"]);
+	$result = $m->managesearchRecordwithpagination("branchs",$_POST["pageno"],$_POST["searchbranchs"],"branch_name");
 	$rows = $result["rows"];
 	$pagination = $result["pagination"];
 	if (count($rows) > 0) {

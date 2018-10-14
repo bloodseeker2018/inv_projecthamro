@@ -65,7 +65,7 @@ if (!isset($_SESSION["id"])){
 						<h4>Welcome Admin,</h4>
 						<h6>Recent Actions:</h6>
 						<div style="height:13rem; overflow-y: auto">						
-							<ul style="list-style-type:decimal;">
+							<ul style="list-style-type:disc;">
 								<span id="recentactionsmsg" name="recentactionsmsg" class="text" style="font-size: 14px;"></span>
 							</ul>
 						</div>						
